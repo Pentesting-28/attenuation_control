@@ -13,6 +13,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+    	/*Esto le permite mantener un archivo donde puede encontrar fácilmente sus sembradoras.
+        Tenga en cuenta que debe prestar atención al orden de sus llamadas con respecto a las restricciones de clave externa.
+        No puede hacer referencia a una tabla que aún no existe.*/
+
+        $this->call([
+        	UserSeeder::class,
+        ]);
         // \App\Models\User::factory(10)->create();
     }
 }
