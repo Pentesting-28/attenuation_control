@@ -4,13 +4,17 @@
 /*Dashboard*/
 use App\Http\Livewire\Template\Dashboard;
 
-/*Crud */
+/*Crud Student*/
 use App\Http\Livewire\Student\Index as StudentIndex;
 
 /*Attendance Register*/
 use App\Http\Livewire\Student\Attendance as AttendanceRegister;
 
+/*Crud Attendance*/
+use App\Http\Livewire\Attendance\Index as AttendanceIndex;
+
 use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -37,5 +41,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/dashboard', Dashboard::class)->name('dashboard');
 
     Route::get('/students', StudentIndex::class)->name('student.index');
+
+    Route::get('/attendance', AttendanceIndex::class)->name('attendance.index');
 
 });

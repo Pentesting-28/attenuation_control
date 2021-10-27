@@ -5309,10 +5309,54 @@ window.errorsAlertStudent = function () {
   sweetalert2__WEBPACK_IMPORTED_MODULE_1___default().fire({
     position: 'top-end',
     icon: 'error',
-    title: 'Datos invalidos',
+    title: 'Datos invalidos.',
     showConfirmButton: false,
     timer: 2300
   });
+};
+
+window.errorsAlertStudentInfo = function () {
+  sweetalert2__WEBPACK_IMPORTED_MODULE_1___default().fire({
+    position: 'top-end',
+    icon: 'info',
+    title: 'Debe llenar al menos un campo.',
+    showConfirmButton: false,
+    timer: 2300
+  });
+};
+
+window.errorsAlertStudentInfoEntry = function () {
+  sweetalert2__WEBPACK_IMPORTED_MODULE_1___default().fire({
+    position: 'top-end',
+    icon: 'info',
+    title: 'Ya fue registrada su entrada.',
+    showConfirmButton: false,
+    timer: 2300
+  });
+};
+
+window.errorsAlertStudentInfoExit = function () {
+  sweetalert2__WEBPACK_IMPORTED_MODULE_1___default().fire({
+    position: 'top-end',
+    icon: 'info',
+    title: 'Ya fue registrada su salida.',
+    showConfirmButton: false,
+    timer: 2300
+  });
+};
+
+window.errorsAlertStudentInfoNotRegister = function () {
+  sweetalert2__WEBPACK_IMPORTED_MODULE_1___default().fire({
+    position: 'top-end',
+    icon: 'warning',
+    title: 'No ha sido registrado el dia de hoy.',
+    showConfirmButton: false,
+    timer: 2300
+  });
+};
+
+window.successAlertRegisterEntry = function () {
+  sweetalert2__WEBPACK_IMPORTED_MODULE_1___default().fire('Registrado con éxito!', '', 'success');
 };
 
 /***/ }),

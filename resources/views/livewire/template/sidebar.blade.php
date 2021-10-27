@@ -59,6 +59,10 @@
                     <div class="sb-nav-link-icon"><i class="fas fa-lg fa-users"></i></div>
                     Alumnos
                 </a>
+                <a class="nav-link" href="{{ route('attendance.index') }}">
+                    <div class="sb-nav-link-icon"><i class="fas fa-lg fa-clipboard-list"></i></div>
+                    Asistencias
+                </a>
             </div>
         </div>
         {{-- <div class="sb-sidenav-footer">
