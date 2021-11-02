@@ -15,4 +15,8 @@ class Student extends Model
     	'gender',
     	'code',
     ];
+
+    public function absence_justification(){
+        return $this->hasOne('App\Models\Student\AbsenceJustification');
+    }
 }

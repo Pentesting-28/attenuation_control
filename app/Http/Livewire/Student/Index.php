@@ -103,7 +103,8 @@ class Index extends Component
     {
 
       $validatedData = $this->validate([
-        'name'      => 'required|string|min:3|max:255|unique:students',
+        // 'name'      => 'required|string|min:3|max:255|unique:students',
+        'name'      => 'required|string|min:3|max:255',
         'last_name' => 'required|string|min:3|max:255',
         'gender'    => 'required|string',
         'code'      => 'required|string|max:255|unique:students',
@@ -131,7 +132,8 @@ class Index extends Component
     {
 
       $validatedData = $this->validate([
-        'name'      => "required|string|min:3|max:255|unique:students,name,{$student->id}",
+        // 'name'      => "required|string|min:3|max:255|unique:students,name,{$student->id}",
+        'name'      => 'required|string|min:3|max:255',
         'last_name' => 'required|string|min:3|max:255',
         'gender'    => 'required|string',
         'code'      => "required|string|max:255|unique:students,code,{$student->id}",

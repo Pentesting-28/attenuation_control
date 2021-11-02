@@ -1,7 +1,8 @@
 <div>
     <main class="py-4">
 	<div class="container">
-    		<div class="card mb-1 pt-1">
+		@include('livewire.student.justification_for_absence')
+    		<div class="card mb-1 pt-1" style="background-color: #e9ecef;">
 				<div class="text-center">
 					<img class="btAltLogo" src="{{ asset('images/centrohes2.png') }}" id="logo2" alt="Hermanos Enderica Salgado">
 				</div>

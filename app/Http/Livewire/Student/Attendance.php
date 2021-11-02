@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Student;
 use Livewire\Component;
 use App\Models\Student\{
     Attendance as AttendanceModel,
+    AbsenceJustification,
     Student
 };
 use Illuminate\Database\Eloquent\Builder;
@@ -45,7 +46,6 @@ class Attendance extends Component
 
     public function entryAlumn()
     {
-
         $Object = new DateTime();  
         $Object->setTimezone(new DateTimeZone('America/Caracas'));
         $hour = $Object->format("h:i:s a");
@@ -59,22 +59,35 @@ class Attendance extends Component
         {
             if(count($student->toArray()) > 0)//si exite el alumno
             {
-                $attendance = AttendanceModel::where('student_id', $student[0]->id)
-                                             ->latest()
-                                             ->get();
+                $absence_justification = AbsenceJustification::where('student_id', $student[0]->id)
+                                                  ->where('status', '!=' , false)
+                                                  ->latest()
+                                                  ->get();
 
-                if(count($attendance->toArray()) > 0)//si exite un primer registro
+                if(count($absence_justification->toArray()) > 0)
                 {
-                    if( Carbon::now()->format('Y-m-d') <= $student[0]->created_at->format('Y-m-d') && $attendance[0]->status == false )
+                    dd('pinto bien');
+                    $attendance = AttendanceModel::where('student_id', $student[0]->id)
+                                                 ->latest()
+                                                 ->get();
+
+                    if(count($attendance->toArray()) > 0)//si exite un primer registro
                     {
-                        $this->band = true;
+                        if( Carbon::now()->format('Y-m-d') <= $student[0]->created_at->format('Y-m-d') && $attendance[0]->status == false )
+                        {
+                            $this->band = true;
+                        }
+                        else{
+                            $this->emit('error_validation_info_entry');
+                        }
                     }
                     else{
-                        $this->emit('error_validation_info_entry');
+                        $this->band = true;
                     }
                 }
                 else{
-                    $this->band = true;
+                    // dd('pinto mal');
+                    $this->emit('modalShow');
                 }
             }
             else{
