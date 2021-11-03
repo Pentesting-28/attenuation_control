@@ -17,15 +17,15 @@ class Index extends Component
 		$last_name,
 		$gender,
 		$code,
-    $schedule,
-    $status,
-    $sport,
-    $student_id,
-    $filter = [
-      'student_name' => null,
-      'student_last_name' => null,
-      'student_code' => null
-    ];
+        $schedule,
+        $status,
+        $sport,
+        $student_id,
+        $filter = [
+          'student_name' => null,
+          'student_last_name' => null,
+          'student_code' => null
+        ];
 
   protected $paginationTheme = 'bootstrap';
 
@@ -82,6 +82,9 @@ class Index extends Component
             'gender' => $student->gender,
             'code' => $student->code,
             'student_id' => $student->id,
+            'schedule' => $student->schedule,
+            'status' => $student->status,
+            'sport' => $student->sport,
           ]);
 
         break;
@@ -120,7 +123,6 @@ class Index extends Component
 
     public function store()
     {
-      dd($this->status);
       $validatedData = $this->validate([
         // 'name'      => 'required|string|min:3|max:255|unique:students',
         'name'      => 'required|string|min:3|max:255',
@@ -129,6 +131,7 @@ class Index extends Component
         'code'      => 'required|string|max:255|unique:students',
         'schedule'  => 'required|string',
         'sport'     => 'required|string',
+        'status'    => 'required|boolean'
       ]);
 
       $student = Student::create([
@@ -167,7 +170,10 @@ class Index extends Component
         'name'      => $this->name,
         'last_name' => $this->last_name,
         'gender'    => $this->gender,
-        'code'      => $this->code
+        'code'      => $this->code,
+        'schedule'  => $this->schedule,
+        'status'    => $this->status,
+        'sport'     => $this->sport
       ]);
 
       $this->clearProperty();
