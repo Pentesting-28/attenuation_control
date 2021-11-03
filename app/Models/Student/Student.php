@@ -14,6 +14,9 @@ class Student extends Model
     	'last_name',
     	'gender',
     	'code',
+        'schedule',
+        'status',
+        'sport',
     ];
 
     public function absence_justification(){

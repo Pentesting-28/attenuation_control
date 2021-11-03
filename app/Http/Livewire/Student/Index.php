@@ -17,7 +17,15 @@ class Index extends Component
 		$last_name,
 		$gender,
 		$code,
-    $student_id;
+    $schedule,
+    $status,
+    $sport,
+    $student_id,
+    $filter = [
+      'student_name' => null,
+      'student_last_name' => null,
+      'student_code' => null
+    ];
 
   protected $paginationTheme = 'bootstrap';
 
@@ -34,7 +42,18 @@ class Index extends Component
 
     public function render()
     {
-    	$students = Student::paginate(10); 
+      $students = Student::when($this->filter["student_name"] != null, function ( Builder $query ) {
+                              $query->where('name', 'LIKE', '%'.$this->filter["student_name"].'%');
+                           })
+                           ->when($this->filter["student_last_name"] != null, function ( Builder $query ) {
+                              $query->where('last_name', 'LIKE', '%'.$this->filter["student_last_name"].'%');
+                           })
+                           ->when($this->filter["student_code"] != null, function ( Builder $query ) {
+                              $query->where('code', 'LIKE', '%'.$this->filter["student_code"].'%');
+                           })
+                           ->orderBy('created_at', 'ASC')
+                           ->paginate(10);
+
       return view('livewire.student.index', compact('students'));
     }
 
@@ -101,13 +120,15 @@ class Index extends Component
 
     public function store()
     {
-
+      dd($this->status);
       $validatedData = $this->validate([
         // 'name'      => 'required|string|min:3|max:255|unique:students',
         'name'      => 'required|string|min:3|max:255',
         'last_name' => 'required|string|min:3|max:255',
         'gender'    => 'required|string',
         'code'      => 'required|string|max:255|unique:students',
+        'schedule'  => 'required|string',
+        'sport'     => 'required|string',
       ]);
 
       $student = Student::create([
@@ -115,6 +136,9 @@ class Index extends Component
         'last_name' => $this->last_name,
         'gender'    => $this->gender,
         'code'      => $this->code,
+        'schedule'  => $this->schedule,
+        'status'    => $this->status,
+        'sport'     => $this->sport
       ]);
 
       $this->clearProperty();

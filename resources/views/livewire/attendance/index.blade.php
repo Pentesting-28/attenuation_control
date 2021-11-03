@@ -22,6 +22,15 @@
                         <a title="Registrar Usuario" data-toggle="modal" data-target="#createModal" class="btn btn-secondary float-right" style="background: #6c63ff; border-radius: 5px;"><i class="fas fa-address-card"></i></a>
                     </div> --}}
                 </div>
+                <div class="btn-toolbar justify-content-between float-right py-4" role="toolbar" aria-label="Toolbar with button groups">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                          <input title="Buscar por Nombre" wire:model="filter.student_name" type="text" class="form-control mx-1" name="student_name" id="student_name" placeholder="Nombre">
+                          <input title="Buscar por Apellido" wire:model="filter.student_last_name" type="text" class="form-control mx-1" name="student_last_name" id="student_last_name" placeholder="Apellido">
+                          <input title="Buscar por Codigo" wire:model="filter.student_code" type="text" class="form-control mx-1" name="student_code" id="student_code" placeholder="Codigo">
+                    </div>
+                  </div>
+                </div>
 
                     <div class="table-responsive py-3">
                         <table class="table" width="100%" cellspacing="0">

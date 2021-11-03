@@ -32,20 +32,30 @@
 					  	<div class="container pt-4">
 	          				<form wire:submit.prevent="entryAlumn()" method="POST">
 		      					<div class="form-row">
-		                        <div class="col-md-6 mb-3">
+		                        <div class="col-md-4 mb-3">
 		                          <label for="validationCustom01">Nombre</label>
 		                          <input wire:model="name" type="text" name="name" class="form-control" id="validationCustom01"  placeholder="Nombre">
 		                          @error('name') <span class="error text-danger">{{ $message }}</span>@enderror
 		                        </div>
 
-		                        <div class="col-md-6 mb-3" >
+		                        <div class="col-md-4 mb-3">
+		                          <label for="validationCustom01">Apellido</label>
+		                          <input wire:model="last_name" type="text" name="last_name" class="form-control" id="validationCustom01"  placeholder="Apellido">
+		                          @error('last_name') <span class="error text-danger">{{ $message }}</span>@enderror
+		                        </div>
+
+		                        <div class="col-md-4 mb-3" >
 		                            <label for="validationCustom03">Codigo</label>
 		                            <input wire:model="code" type="text" class="form-control" id="validationCustom03"  placeholder="Codigo">
 		                            @error('code') <span class="error text-danger">{{ $message }}</span>@enderror
 		                        </div>
 		                      </div>
-		                      <div class="modal-footer">
-		                         <button type="submit" class="btn btn-sm btn-success" title="Guardar Registro">Aceptar</button>
+		                      <div class="modal-footer" >
+		                      	 {{-- @if ($data_student != null) --}}
+		                         <button type="button" wire:click="$emit('validateData')" class="btn btn-sm btn-dark" title="Guardar Registro" {{--wire:click="modal('destroy', $student->id )"--}}>Justificar Inasistencia</button>
+		                         {{-- @endif --}}
+
+		                         <button type="submit" class="btn btn-sm btn-success" title="Guardar Registro">Registrar</button>
 		                      </div>
 		                    </form>
 	                	</div>
@@ -55,20 +65,26 @@
 					  	<div class="container pt-4">
 	          				<form wire:submit.prevent="exitAlumn()" method="POST">
 		      					<div class="form-row">
-		                        <div class="col-md-6 mb-3">
+		                        <div class="col-md-4 mb-3">
 		                          <label for="validationCustom01">Nombre</label>
 		                          <input wire:model="name" type="text" name="name" class="form-control" id="validationCustom01"  placeholder="Nombre">
 		                          @error('name') <span class="error text-danger">{{ $message }}</span>@enderror
 		                        </div>
 
-		                        <div class="col-md-6 mb-3" >
+		                        <div class="col-md-4 mb-3">
+		                          <label for="validationCustom01">Apellido</label>
+		                          <input wire:model="last_name" type="text" name="last_name" class="form-control" id="validationCustom01"  placeholder="Apellido">
+		                          @error('last_name') <span class="error text-danger">{{ $message }}</span>@enderror
+		                        </div>
+
+		                        <div class="col-md-4 mb-3" >
 		                            <label for="validationCustom03">Codigo</label>
 		                            <input wire:model="code" type="text" class="form-control" id="validationCustom03"  placeholder="Codigo" >
 		                            @error('code') <span class="error text-danger">{{ $message }}</span>@enderror
 		                        </div>
 		                      </div>
 		                      <div class="modal-footer">
-		                         <button type="submit" class="btn btn-sm btn-success" title="Guardar Registro">Aceptar</button>
+		                         <button type="submit" class="btn btn-sm btn-success" title="Guardar Registro">Registrar</button>
 		                      </div>
 		                    </form>
 	                	</div>

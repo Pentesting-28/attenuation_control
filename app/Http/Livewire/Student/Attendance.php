@@ -17,17 +17,21 @@ class Attendance extends Component
 {
 	public
 		$name,
+        $last_name,
 		$code,
         $band = false,
+        $description,
         $data_student;
 
     protected $listeners = [
         'clearProperty' => 'clearProperty',
+        'validateData'  => 'absenceJustificationValidateData',
     ];
 
     public function render()
     {
         $this->data_student = Student::Orwhere('name', $this->name)
+                                     ->Orwhere('last_name', $this->last_name)
                                      ->Orwhere('code', $this->code)
                                      ->first();
 
@@ -40,6 +44,7 @@ class Attendance extends Component
             'name',
             'code',
             'band',
+            'description',
             'data_student',
         ]);
     }
@@ -52,21 +57,22 @@ class Attendance extends Component
         // $DateAndTime = $Object->format("d-m-Y h:i:s a");
 
         $student = Student::Orwhere('name', $this->name)
+                          ->Orwhere('last_name', $this->last_name)
                           ->Orwhere('code', $this->code)
                           ->get();
 
-        if($this->name != null || $this->code != null)//si no inserta nada 
+        if($this->name != null || $this->last_name != null || $this->code != null)//si no inserta nada 
         {
             if(count($student->toArray()) > 0)//si exite el alumno
             {
-                $absence_justification = AbsenceJustification::where('student_id', $student[0]->id)
-                                                  ->where('status', '!=' , false)
-                                                  ->latest()
-                                                  ->get();
+                // $absence_justification = AbsenceJustification::where('student_id', $student[0]->id)
+                //                                   ->where('status', '!=' , false)
+                //                                   ->latest()
+                //                                   ->get();
 
-                if(count($absence_justification->toArray()) > 0)
-                {
-                    dd('pinto bien');
+                // if(count($absence_justification->toArray()) > 0)
+                // {
+                //     dd('pinto bien');
                     $attendance = AttendanceModel::where('student_id', $student[0]->id)
                                                  ->latest()
                                                  ->get();
@@ -84,11 +90,11 @@ class Attendance extends Component
                     else{
                         $this->band = true;
                     }
-                }
-                else{
-                    // dd('pinto mal');
-                    $this->emit('modalShow');
-                }
+                // }
+                // else{
+                //     // dd('pinto mal');
+                //     $this->emit('modalShow');
+                // }
             }
             else{
                 $this->emit('error_validation');
@@ -101,8 +107,8 @@ class Attendance extends Component
         if( $this->band == true )
         {
             AttendanceModel::create([
-                'hour' => $hour,
-                'status' => true,
+                'hour'       => $hour,
+                'status'     => true,
                 'student_id' => $student[0]->id,
             ]);
 
@@ -120,10 +126,11 @@ class Attendance extends Component
         // $DateAndTime = $Object->format("d-m-Y h:i:s a");
         
         $student = Student::Orwhere('name', $this->name)
-                         ->Orwhere('code', $this->code)
+                          ->Orwhere('last_name', $this->last_name)
+                          ->Orwhere('code', $this->code)
                           ->get();
 
-        if($this->name != null || $this->code != null)
+        if($this->name != null || $this->last_name != null || $this->code != null)
         {
             if(count($student->toArray()) > 0 )
             {
@@ -134,8 +141,8 @@ class Attendance extends Component
                     if( Carbon::now()->format('Y-m-d') <=  $student[0]->created_at->format('Y-m-d') && $attendance[0]->status == true)
                     {
                         AttendanceModel::create([
-                            'hour' => $hour,
-                            'status' => false,
+                            'hour'       => $hour,
+                            'status'     => false,
                             'student_id' => $student[0]->id,
                         ]);
 
@@ -158,5 +165,37 @@ class Attendance extends Component
         else{
             $this->emit('error_validation_info');
         }
+    }
+
+    public function absenceJustificationValidateData()
+    {
+        if($this->name != null || $this->last_name != null || $this->code != null)
+        {
+            if($this->data_student != null)
+            {
+                $this->emit('modalShow');
+            }
+            else{
+               $this->emit('error_validation'); 
+            }
+        }
+        else{
+            $this->emit('error_validation_info');
+        }
+    }
+
+    public function absenceJustificationStore()
+    {
+        AbsenceJustification::create([
+            'status'      => true,
+            'description' => $this->description,
+            'student_id'  => $this->data_student->id,
+        ]);
+
+        $this->clearProperty();
+
+        $this->emit('modalHide');
+
+        $this->emit('confirm_register_entry');
     }
 }

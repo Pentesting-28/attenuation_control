@@ -19,6 +19,9 @@ class CreateStudentsTable extends Migration
             $table->string('last_name', 255);
             $table->string('gender', 255);
             $table->string('code', 255)->unique();
+            $table->string('schedule');
+            $table->boolean('status')->default(0);
+            $table->string('sport');
             $table->timestamps();
         });
     }

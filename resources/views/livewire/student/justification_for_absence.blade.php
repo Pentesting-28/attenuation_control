@@ -15,14 +15,11 @@
                       @if ($data_student != null)
 
                         <h4 >{{ $data_student->name }} {{ $data_student->last_name }}</h4>
-                        <span>Desde fecha... hasta fecha...</span><br>
-                                  O<br>
-                        <span>...fecha...</span>
 
                       @endif
 
                     </div>
-          				<form wire:submit.prevent="store()" method="POST">
+          				<form wire:submit.prevent="absenceJustificationStore()" method="POST">
                         <div class="col-md-12 mb-3" wire:ignore>
                           <label for="validationCustomUsername">Descripción</label>
                           <textarea class="form-control" wire:model="description" id="description" rows="5" style="resize: none;"></textarea>
@@ -47,6 +44,11 @@
         });
     });
 
+    document.addEventListener('livewire:load', () => {
+       @this.on('modalHide', () => {
+            $("#absenceModal").modal("hide");
+        });
+    });
 </script>
 
 <script src="https://cdn.tiny.cloud/1/t6azg0zybtcuxa22la4mfcrrs9jc153k89z0u3jk3bno1oig/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
