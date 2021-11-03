@@ -109,6 +109,9 @@ class Index extends Component
         'last_name',
         'gender',
         'code',
+        'schedule',
+        'status',
+        'sport',
         'student_id',
       ]);
       
