@@ -84,11 +84,14 @@
         </div>
     </main>
 </div>
-
+{{ $sports }}
 <script type="text/javascript">
 
 document.addEventListener('livewire:load', () => {
     @this.on('confirm_create', () => {
+        $(document).ready(function() {
+            // $(".js-example-basic-multiple").empty();
+        });
         successAlertCreate();
     });
 
@@ -97,4 +100,43 @@ document.addEventListener('livewire:load', () => {
     });
 });
 
+document.addEventListener("DOMContentLoaded", () => {
+
+    $(".js-example-basic-multiple").select2();//Inicializar
+
+    // // $(document).ready(function() {
+    //       // alert('hola')
+    //     $(".js-example-basic-multiple").select2();
+
+    //     $(".js-example-basic-multiple").select2({
+    //       placeholder: "Seleccione deporte",
+    //       allowClear: true
+    //     });
+    //     Livewire.hook('message.processed', (message, component) => {
+    //         $(".js-example-basic-multiple").on('change', function (e) {
+    //             var p_id = $(".js-example-basic-multiple").select2("val");
+    //             // var p_name = $(".js-example-basic-multiple option:select").text();
+    //             @this.set("sport", p_id);
+    //         });
+    //     })
+    // });
+    $(document).ready(function() {
+
+        $(".js-example-basic-multiple").select2();
+
+        $(".js-example-basic-multiple").select2({
+          placeholder: "Seleccione deporte",
+          allowClear: true
+        });
+
+        $(".js-example-basic-multiple").on('change', function (e) {
+
+            var data = $(".js-example-basic-multiple").select2("val");
+
+            @this.set('sport', data);
+
+        });
+    });
+
+});
 </script>

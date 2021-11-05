@@ -49,47 +49,46 @@
 
                       <div class="form-row">
                         <div class="col-md-6 mb-3">
-                          <label for="validationCustomUsername2">Tipo de deporte</label>
+                          <label for="validationCustomUsername">Pagó</label>
                           <div class="input-group">
-                            <select wire:model.defer="sport" class="custom-select">
+                            <select wire:model="status" class="custom-select" >
+                                <option  selected value="">Seleccione status</option>
 
-                                <option  selected value="">Seleccione deporte</option>
-
-                                <option value="Natación">Natacion</option>
-                                <option value="Triatlon">Triatlon</option>
-                                <option value="Ballet">Ballet</option>
-                                <option value="Defensa Personal">Defensa Personal</option>
-                                <option value="Gimnasio">Gimnasio</option>
+                                  <option value="{{ 1 }}">Si</option>
+                                  <option value="{{ 0 }}">No</option>
 
                             </select>
                           </div>
-                            @error('sport') <span class="error text-danger">{{ $message }}</span>@enderror
+                            @error('status') <span class="error text-danger">{{ $message }}</span>@enderror
                         </div>
-
                         <div class="col-md-6 mb-3" >
                             <label for="validationCustom03">Horario</label>
                             <input wire:model.defer="schedule" type="time" class="form-control" id="validationCustom03"  placeholder="Horarios">
                             @error('schedule') <span class="error text-danger">{{ $message }}</span>@enderror
                         </div>
                       </div>
-                      <fieldset class="form-group row">
-                        <label for="validationCustom03">Pagó</label>
-                        <div class="col-sm-10">
-                          <div class="form-check">
-                            <input class="form-check-input" wire:model.defer="status" type="radio" name="gridRadios" id="gridRadios1" value={{ 1 }} checked>
-                            <label class="form-check-label" for="gridRadios1">
-                              Si
-                            </label>
-                          </div>
-                          <div class="form-check">
-                            <input class="form-check-input" wire:model.defer="status" type="radio" name="gridRadios" id="gridRadios2" value={{ 0 }}>
-                            <label class="form-check-label" for="gridRadios2">
-                              No
-                            </label>
-                          </div>
-                          @error('status') <span class="error text-danger">{{ $message }}</span>@enderror
+
+                      <div class="mb-3">
+                        <label for="validationCustomUsername2">Tipo de deporte</label>
+                        <div class="input-group" wire:ignore>
+                          <select class="js-example-basic-multiple" wire:model="sport" name="states[]" multiple="multiple" style="width: 100%">
+                              @foreach ($sports as $index => $sport)
+                              <option value="{{ $sport->id }}">{{ $sport->name }}</option>
+                              @endforeach
+
+                          </select>
+
+                            {{-- <div class="col-md-3 mb-3" wire:key="customControlInline1{{ $sport->id }}">
+                                <div class="custom-control custom-checkbox my-1 mr-sm-2  mb-3" >
+                                    <input type="checkbox" wire:model.defer="poll.{{ $sport->id }}" value="{{ $sport->id }}" class="custom-control-input" id="customControlInline1{{ $sport->id }}">
+                                    <label class="custom-control-label" for="customControlInline1{{ $sport->id }}">{{ $sport->name }}</label>
+                                </div>
+                            </div>
+                            @endforeach --}}
                         </div>
-                      </fieldset>
+                          @error('sport') <span class="error text-danger">{{ $message }}</span>@enderror
+                      </div>
+
                       <div class="modal-footer">
                          <button type="button" wire:click.prevent="clearProperty()"class="btn btn-sm btn-secondary" data-dismiss="modal" title="Cancelar Registro">Volver</button>
                          <button type="submit" class="btn btn-sm btn-success" title="Guardar Registro">Aceptar</button>
@@ -101,6 +100,7 @@
     </div>
 </div>
 
+
 <script type="text/javascript">
 
     document.addEventListener('livewire:load', () => {
@@ -110,3 +110,4 @@
     });
 
 </script>
+

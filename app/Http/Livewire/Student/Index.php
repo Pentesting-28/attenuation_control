@@ -3,39 +3,38 @@
 namespace App\Http\Livewire\Student;
 
 use Livewire\Component;
-use App\Models\Student\Student;
+use App\Models\Student\{Student,Sport};
 use Livewire\WithPagination;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Validation\ValidationException;
 
 class Index extends Component
 {
-	use WithPagination;
+  	use WithPagination;
 
-  protected $paginationTheme = 'bootstrap';
+    protected $paginationTheme = 'bootstrap';
 
-	public
-		$name,
-		$last_name,
-		$gender,
-		$code,
-    $schedule,
-    $status,
-    $sport,
-    $student_id,
-    $filter = [
-      'student_name' => null,
-      'student_last_name' => null,
-      'student_code' => null
+  	public
+  		$name,
+  		$last_name,
+  		$gender,
+  		$code,
+      $schedule,
+      $status,
+      $sport = [],
+      $sports = [],
+      $student_id,
+      $filter = [
+        'student_name' => null,
+        'student_last_name' => null,
+        'student_code' => null
+      ];
+
+
+
+  	protected $listeners = [
+        'mount'
     ];
-
-
-
-	protected $listeners = [
-      'mount'
-  ];
-
-
 
 
 
@@ -62,8 +61,10 @@ class Index extends Component
 
     public function mount()
     {
+
     	$this->fill([
-    		'code' => $this->generateRandom(6),
+    		'code'   => $this->generateRandom(6),
+        'sports' => Sport::get(['id','name']),
     	]);
     }
 
@@ -126,6 +127,7 @@ class Index extends Component
 
     public function store()
     {
+      // dd($this->sport);
       $validatedData = $this->validate([
         // 'name'      => 'required|string|min:3|max:255|unique:students',
         'name'      => 'required|string|min:3|max:255',

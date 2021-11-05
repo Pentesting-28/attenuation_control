@@ -36,7 +36,7 @@
     <!-- As a heading -->
     <nav class="navbar navbar-dark bg-dark">
       <a>
-        <img src="{{ asset('images/centrohes.png') }}" id="logo"  alt="Hermanos Enderica Salgado">
+        <img src="{{ asset('images/centrohes.png') }}" class="img-fluid" id="logo"  alt="Hermanos Enderica Salgado">
       </a>
       @if (Route::has('login'))
           <div class="hidden fixed top-0 right-0 px-6 sm:block ">
