@@ -8,27 +8,25 @@
                     DataTable Example
                 </div> --}}
                 <div class="card-body">
-                @include('livewire.student.destroy')
-                @include('livewire.student.create')
-                @include('livewire.student.edit')
+                @include('livewire.sport.destroy')
+                @include('livewire.sport.create')
+                @include('livewire.sport.edit')
 
 
                 <div class="row align-items-end">
                     <div class="col-lg-8 col-md-8">
-                        <h4>Listado de Alumnos</h4>
+                        <h4>Listado de Deportes</h4>
                     </div>
 
                     <div class="col-lg-4 col-md-4 justify-content-between float-right">
-                        <a title="Registrar Alumnos" data-toggle="modal" data-target="#createModal" class="btn btn-secondary float-right" style="background: #6c63ff; border-radius: 5px;"><i class="fas fa-address-card"></i></a>
+                        <a title="Registrar Deporte" data-toggle="modal" data-target="#createModal" class="btn btn-secondary float-right" style="background: #6c63ff; border-radius: 5px;"><i class="fas fa-address-card"></i></a>
                     </div>
                 </div>
 
                 <div class="btn-toolbar justify-content-between float-right py-4" role="toolbar" aria-label="Toolbar with button groups">
                   <div class="input-group">
                     <div class="input-group-prepend">
-                          <input title="Buscar por Nombre" wire:model="filter.student_name" type="text" class="form-control mx-1" name="student_name" id="student_name" placeholder="Nombre">
-                          <input title="Buscar por Apellido" wire:model="filter.student_last_name" type="text" class="form-control mx-1" name="student_last_name" id="student_last_name" placeholder="Apellido">
-                          <input title="Buscar por Codigo" wire:model="filter.student_code" type="text" class="form-control mx-1" name="student_code" id="student_code" placeholder="Codigo">
+                          <input title="Buscar por Nombre" wire:model="filter.sport_name" type="text" class="form-control mx-1" name="sport_name" id="sport_name" placeholder="Nombre">
                     </div>
                   </div>
                 </div>
@@ -40,27 +38,21 @@
                                 <tr>
                                   <th scope="col">Id</th>
                                   <th >Nombre</th>
-                                  <th >Apellido</th>
-                                  <th >Genero</th>
-                                  <th >Codigo</th>
                                   <th class="text-center">Accición</th>
                                 </tr>
                               </thead>
-                              @foreach($students as $student)
+                              @foreach($sports as $sport)
                               <tbody>
                                 <tr>
-                                  <th>{{ $student->id }}</th>
-                                  <td>{{ $student->name }}</td>
-                                  <td>{{ $student->last_name }}</td>
-                                  <td>{{ $student->gender }}</td>
-                                  <td>{{ $student->code }}</td>
+                                  <th>{{ $sport->id }}</th>
+                                  <td>{{ $sport->name }}</td>
 
                                   <td class="text-center">
-                                    <a title="Editar Alumnos" data-toggle="modal" data-target="#updateModal" wire:click="modal('edit',{{ $student->id }})">
+                                    <a title="Editar Deporte" data-toggle="modal" data-target="#updateModal" wire:click="modal('edit',{{ $sport->id }})">
                                         <button class="btn pt-0" style="background: white;"><i class="fas fa-edit" style="font-size: 20px;"></i></button>
                                     </a>
                                 
-                                    <button title="Eliminar Alumnos" type="button" class="btn pt-0" data-toggle="modal" data-target="#destroyModal" wire:click="modal('destroy',{{ $student->id }})"
+                                    <button title="Eliminar Deporte" type="button" class="btn pt-0" data-toggle="modal" data-target="#destroyModal" wire:click="modal('destroy',{{ $sport->id }})"
                                             class="btn btn-danger text-white mr-2 text-capitalize"
                                             style="background: white">
                                             <i class="fas fa-trash-alt" style="font-size: 20px; color: red"></i>
@@ -70,14 +62,14 @@
                               </tbody>
                               @endforeach
                         </table>
-                        {{ $students->links() }}
+                        {{ $sports->links() }}
                     </div>
                 </div>
             </div>
-            @if($students->count() == 0)
+            @if($sports->count() == 0)
                 <div class="card">
                     <div class="card-body text-center">
-                        No tiene alumnos registrados.
+                        No tiene deportes registrados.
                     </div>
                 </div>
             @endif

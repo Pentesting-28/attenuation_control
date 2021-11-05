@@ -68,7 +68,6 @@
         @stack('modals')
 
         @livewireScripts
-
         {{-- template --}}
 
 

@@ -16,7 +16,7 @@ class Student extends Model
     	'code',
         'schedule',
         'status',
-        'sport',
+        // 'sport',
     ];
 
     public function absence_justification(){

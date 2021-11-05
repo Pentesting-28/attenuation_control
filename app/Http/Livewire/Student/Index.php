@@ -12,28 +12,28 @@ class Index extends Component
 {
 	use WithPagination;
 
+  protected $paginationTheme = 'bootstrap';
+
 	public
 		$name,
 		$last_name,
 		$gender,
 		$code,
-        $schedule,
-        $status,
-        $sport,
-        $student_id,
-        $filter = [
-          'student_name' => null,
-          'student_last_name' => null,
-          'student_code' => null
-        ];
-
-  protected $paginationTheme = 'bootstrap';
+    $schedule,
+    $status,
+    $sport,
+    $student_id,
+    $filter = [
+      'student_name' => null,
+      'student_last_name' => null,
+      'student_code' => null
+    ];
 
 
 
 	protected $listeners = [
-        'mount'
-    ];
+      'mount'
+  ];
 
 
 
@@ -84,7 +84,7 @@ class Index extends Component
             'student_id' => $student->id,
             'schedule' => $student->schedule,
             'status' => $student->status,
-            'sport' => $student->sport,
+            // 'sport' => $student->sport,
           ]);
 
         break;
@@ -111,7 +111,7 @@ class Index extends Component
         'code',
         'schedule',
         'status',
-        'sport',
+        // 'sport',
         'student_id',
       ]);
       
@@ -133,7 +133,7 @@ class Index extends Component
         'gender'    => 'required|string',
         'code'      => 'required|string|max:255|unique:students',
         'schedule'  => 'required|string',
-        'sport'     => 'required|string',
+        // 'sport'     => 'required|string',
         'status'    => 'required|boolean'
       ]);
 
@@ -144,7 +144,7 @@ class Index extends Component
         'code'      => $this->code,
         'schedule'  => $this->schedule,
         'status'    => $this->status,
-        'sport'     => $this->sport
+        // 'sport'     => $this->sport
       ]);
 
       $this->clearProperty();
@@ -176,7 +176,7 @@ class Index extends Component
         'code'      => $this->code,
         'schedule'  => $this->schedule,
         'status'    => $this->status,
-        'sport'     => $this->sport
+        // 'sport'     => $this->sport
       ]);
 
       $this->clearProperty();
@@ -218,6 +218,12 @@ class Index extends Component
 
 	    return $random_string;
     }
+
+
+
+
+
+    
 
     public function generateNewCode()
     {

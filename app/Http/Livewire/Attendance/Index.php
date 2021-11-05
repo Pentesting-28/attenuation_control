@@ -13,6 +13,7 @@ class Index extends Component
 	use WithPagination;
 
 	protected $paginationTheme = 'bootstrap';
+
 	public
 		$filter = [
 	      'student_name' => null,
@@ -20,6 +21,11 @@ class Index extends Component
 	      'student_code' => null
 	    ];
 
+
+
+
+
+	       
     public function render()
     {
     	$attendances = Attendance::with('student')

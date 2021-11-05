@@ -13,6 +13,10 @@ use App\Http\Livewire\Student\Attendance as AttendanceRegister;
 /*Crud Attendance*/
 use App\Http\Livewire\Attendance\Index as AttendanceIndex;
 
+/*Crud Sport*/
+use App\Http\Livewire\Sport\Index as SportIndex;
+
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -43,5 +47,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/students', StudentIndex::class)->name('student.index');
 
     Route::get('/attendance', AttendanceIndex::class)->name('attendance.index');
+
+    Route::get('/sport', SportIndex::class)->name('sport.index');
 
 });

@@ -55,6 +55,11 @@
                     <div class="sb-nav-link-icon"><i class="fas fa-lg fa-user"></i></div>
                     Usuarios
                 </a>
+                
+                <a class="nav-link" href="{{ route('sport.index') }}">
+                    <div class="sb-nav-link-icon"><i class="fas fa-lg fa-running"></i></div>
+                    Deportes
+                </a>
                 <a class="nav-link" href="{{ route('student.index') }}">
                     <div class="sb-nav-link-icon"><i class="fas fa-lg fa-users"></i></div>
                     Alumnos
