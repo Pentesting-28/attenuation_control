@@ -16,9 +16,17 @@ class Student extends Model
     	'code',
         'schedule',
         'status',
-        // 'sport',
     ];
 
+    /**
+     * Relaciones
+     */
+
+    //Studen relacionados con el Sport
+    public function sports(){
+        return $this->belongsToMany('App\Models\Student\Sport')->withTimestamps();
+    }
+    
     public function absence_justification(){
         return $this->hasOne('App\Models\Student\AbsenceJustification');
     }

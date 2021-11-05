@@ -12,4 +12,13 @@ class Sport extends Model
     protected $fillable = [
     	'name',
     ];
+
+    /**
+     * Relaciones
+     */
+
+    //Sport relacionados con el Student
+    public function students(){
+        return $this->belongsToMany('App\Models\Student\Student')->withTimestamps();
+    }
 }
