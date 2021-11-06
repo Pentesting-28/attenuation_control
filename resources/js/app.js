@@ -70,3 +70,13 @@ window.errorsAlertStudentInfoNotRegister = function () {
 window.successAlertRegisterEntry = function (){
     Swal.fire('Registrado con éxito!', '', 'success');
 }
+
+window.errorsAlertSelectSport = function () {
+	Swal.fire({
+	  position: 'top-end',
+	  icon: 'info',
+	  title: 'Seleccione al menos un deporte.',
+	  showConfirmButton: false,
+	  timer: 2300
+	});
+}

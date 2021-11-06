@@ -84,42 +84,38 @@
         </div>
     </main>
 </div>
-{{ $sports }}
+
 <script type="text/javascript">
 
 document.addEventListener('livewire:load', () => {
+
     @this.on('confirm_create', () => {
-        $(document).ready(function() {
-            // $(".js-example-basic-multiple").empty();
-        });
         successAlertCreate();
     });
 
     @this.on('confirm_update', () => {
         successAlertUpdate();
     });
+
+    @this.on('error_validation_sport', () => {
+        errorsAlertSelectSport();
+    });
+
+    // Clear Select2
+    @this.on('clearSelet2', () => {
+
+        $(document).ready(function() {
+          $(".js-example-basic-multiple").val(null).trigger("change");
+        });
+
+    });
+
 });
 
 document.addEventListener("DOMContentLoaded", () => {
 
     $(".js-example-basic-multiple").select2();//Inicializar
 
-    // // $(document).ready(function() {
-    //       // alert('hola')
-    //     $(".js-example-basic-multiple").select2();
-
-    //     $(".js-example-basic-multiple").select2({
-    //       placeholder: "Seleccione deporte",
-    //       allowClear: true
-    //     });
-    //     Livewire.hook('message.processed', (message, component) => {
-    //         $(".js-example-basic-multiple").on('change', function (e) {
-    //             var p_id = $(".js-example-basic-multiple").select2("val");
-    //             // var p_name = $(".js-example-basic-multiple option:select").text();
-    //             @this.set("sport", p_id);
-    //         });
-    //     })
-    // });
     $(document).ready(function() {
 
         $(".js-example-basic-multiple").select2();

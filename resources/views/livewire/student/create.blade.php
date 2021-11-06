@@ -51,7 +51,7 @@
                         <div class="col-md-6 mb-3">
                           <label for="validationCustomUsername">Pagó</label>
                           <div class="input-group">
-                            <select wire:model="status" class="custom-select" >
+                            <select wire:model.defer="status" class="custom-select" >
                                 <option  selected value="">Seleccione status</option>
 
                                   <option value="{{ 1 }}">Si</option>
@@ -71,20 +71,14 @@
                       <div class="mb-3">
                         <label for="validationCustomUsername2">Tipo de deporte</label>
                         <div class="input-group" wire:ignore>
-                          <select class="js-example-basic-multiple" wire:model="sport" name="states[]" multiple="multiple" style="width: 100%">
+
+                          <select class="js-example-basic-multiple" wire:model="sport" name="sport[]" multiple="multiple" style="width: 100%">
                               @foreach ($sports as $index => $sport)
                               <option value="{{ $sport->id }}">{{ $sport->name }}</option>
                               @endforeach
 
                           </select>
 
-                            {{-- <div class="col-md-3 mb-3" wire:key="customControlInline1{{ $sport->id }}">
-                                <div class="custom-control custom-checkbox my-1 mr-sm-2  mb-3" >
-                                    <input type="checkbox" wire:model.defer="poll.{{ $sport->id }}" value="{{ $sport->id }}" class="custom-control-input" id="customControlInline1{{ $sport->id }}">
-                                    <label class="custom-control-label" for="customControlInline1{{ $sport->id }}">{{ $sport->name }}</label>
-                                </div>
-                            </div>
-                            @endforeach --}}
                         </div>
                           @error('sport') <span class="error text-danger">{{ $message }}</span>@enderror
                       </div>

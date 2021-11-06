@@ -85,7 +85,7 @@ class Index extends Component
             'student_id' => $student->id,
             'schedule' => $student->schedule,
             'status' => $student->status,
-            // 'sport' => $student->sport,
+            'sport' => $student->sport,
           ]);
 
         break;
@@ -112,10 +112,12 @@ class Index extends Component
         'code',
         'schedule',
         'status',
-        // 'sport',
+        'sport',
         'student_id',
       ]);
-      
+
+      $this->emit('clearSelet2');
+
       $this->resetValidation();
 
       $this->emit('mount');
@@ -127,7 +129,6 @@ class Index extends Component
 
     public function store()
     {
-      // dd($this->sport);
       $validatedData = $this->validate([
         // 'name'      => 'required|string|min:3|max:255|unique:students',
         'name'      => 'required|string|min:3|max:255',
@@ -135,25 +136,33 @@ class Index extends Component
         'gender'    => 'required|string',
         'code'      => 'required|string|max:255|unique:students',
         'schedule'  => 'required|string',
-        // 'sport'     => 'required|string',
+        'sport'     => 'required',
         'status'    => 'required|boolean'
       ]);
 
-      $student = Student::create([
-        'name'      => $this->name,
-        'last_name' => $this->last_name,
-        'gender'    => $this->gender,
-        'code'      => $this->code,
-        'schedule'  => $this->schedule,
-        'status'    => $this->status,
-        // 'sport'     => $this->sport
-      ]);
+      $select_id_sport = array_filter($this->sport);
 
-      $this->clearProperty();
+      $this->validatorSport($select_id_sport);
 
-      $this->emit('modalHide');
+      if(count($select_id_sport) > 0)
+      {
+        $student = Student::create([
+          'name'      => $this->name,
+          'last_name' => $this->last_name,
+          'gender'    => $this->gender,
+          'code'      => $this->code,
+          'schedule'  => $this->schedule,
+          'status'    => $this->status,
+        ]);
 
-      $this->emit('confirm_create');
+        $student->sports()->sync($select_id_sport);
+
+        $this->clearProperty();
+
+        $this->emit('modalHide');
+
+        $this->emit('confirm_create');
+      }
     }
 
 
@@ -230,5 +239,17 @@ class Index extends Component
     public function generateNewCode()
     {
       $this->emit('mount');
+    }
+
+
+
+
+
+    private function validatorSport(array $select_id_sport)
+    {
+        if(count($select_id_sport) == 0)
+        {
+            $this->emit('error_validation_sport');
+        }
     }
 }
