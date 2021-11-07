@@ -16,9 +16,9 @@ class Index extends Component
 
 	public
 		$filter = [
-	      'student_name' => null,
+	      'student_name'      => null,
 	      'student_last_name' => null,
-	      'student_code' => null
+	      'student_code'      => null
 	    ];
 
 

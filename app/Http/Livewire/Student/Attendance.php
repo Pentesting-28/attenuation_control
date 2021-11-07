@@ -28,6 +28,8 @@ class Attendance extends Component
         'validateData'  => 'absenceJustificationValidateData',
     ];
 
+
+
     public function render()
     {
         $this->data_student = Student::Orwhere('name', $this->name)
@@ -37,6 +39,11 @@ class Attendance extends Component
 
         return view('livewire.student.attendance');
     }
+
+
+
+
+
 
     public function clearProperty()
     {
@@ -48,6 +55,11 @@ class Attendance extends Component
             'data_student',
         ]);
     }
+
+
+
+
+
 
     public function entryAlumn()
     {
@@ -118,6 +130,12 @@ class Attendance extends Component
         }
     }
 
+
+
+
+
+
+
     public function exitAlumn()
     {
         $Object = new DateTime();  
@@ -167,6 +185,11 @@ class Attendance extends Component
         }
     }
 
+
+
+
+
+
     public function absenceJustificationValidateData()
     {
         if($this->name != null || $this->last_name != null || $this->code != null)
@@ -183,6 +206,11 @@ class Attendance extends Component
             $this->emit('error_validation_info');
         }
     }
+
+
+
+
+
 
     public function absenceJustificationStore()
     {

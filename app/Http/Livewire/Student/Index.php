@@ -16,20 +16,20 @@ class Index extends Component
     protected $paginationTheme = 'bootstrap';
 
   	public
-  		$name,
-  		$last_name,
-  		$gender,
-  		$code,
-      $schedule,
-      $status,
-      $sport = [],
-      $sports = [],
-      $student_id,
-      $filter = [
-        'student_name' => null,
-        'student_last_name' => null,
-        'student_code' => null
-      ];
+    		$name,
+    		$last_name,
+    		$gender,
+    		$code,
+        $schedule,
+        $status,
+        $sport  = [],
+        $sports = [],
+        $student_id,
+        $filter = [
+          'student_name'      => null,
+          'student_last_name' => null,
+          'student_code'      => null
+        ];
 
 
 
