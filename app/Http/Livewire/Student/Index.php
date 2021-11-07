@@ -7,6 +7,7 @@ use App\Models\Student\{Student,Sport};
 use Livewire\WithPagination;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Validation\ValidationException;
+use DB;
 
 class Index extends Component
 {
@@ -73,19 +74,28 @@ class Index extends Component
 
     public function modal($action, Student $student)
     {
+      $student_sport = Student::where( 'id', $student->id )
+                                ->with( 'sports' )
+                                ->first();
+      $select_sport = [];
+
+      foreach ($student_sport->sports as $sport)
+      {
+        array_push($select_sport, $sport->id);
+      }
 
       switch ($action) {
         case 'edit':
 
           $this->fill([
-            'name' => $student->name,
-            'last_name' => $student->last_name,
-            'gender' => $student->gender,
-            'code' => $student->code,
+            'name'       => $student->name,
+            'last_name'  => $student->last_name,
+            'gender'     => $student->gender,
+            'code'       => $student->code,
             'student_id' => $student->id,
-            'schedule' => $student->schedule,
-            'status' => $student->status,
-            'sport' => $student->sport,
+            'schedule'   => $student->schedule,
+            'status'     => $student->status,
+            'sport'      => $select_sport,
           ]);
 
         break;
@@ -93,7 +103,7 @@ class Index extends Component
         case 'destroy':
 
           $this->fill([
-            'student_id'    => $student->id,
+            'student_id' => $student->id,
           ]);
 
         break;
@@ -180,21 +190,29 @@ class Index extends Component
         'code'      => "required|string|max:255|unique:students,code,{$student->id}",
       ]);
 
-      $student_update = $student->update([
-        'name'      => $this->name,
-        'last_name' => $this->last_name,
-        'gender'    => $this->gender,
-        'code'      => $this->code,
-        'schedule'  => $this->schedule,
-        'status'    => $this->status,
-        // 'sport'     => $this->sport
-      ]);
+      $select_id_sport = array_filter($this->sport);
 
-      $this->clearProperty();
+      $this->validatorSport($select_id_sport);
 
-      $this->emit('modalHide');
+      if(count($select_id_sport) > 0)
+      {
+        $student_update = $student->update([
+          'name'      => $this->name,
+          'last_name' => $this->last_name,
+          'gender'    => $this->gender,
+          'code'      => $this->code,
+          'schedule'  => $this->schedule,
+          'status'    => $this->status
+        ]);
 
-      $this->emit('confirm_update');
+        $student->sports()->sync($select_id_sport);
+
+        $this->clearProperty();
+
+        $this->emit('modalHide');
+
+        $this->emit('confirm_update');
+      }
     }
 
 
@@ -219,10 +237,11 @@ class Index extends Component
     public function generateRandom($strength)
     {
 	    $permitted_chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-	    $input_length = strlen($permitted_chars);
-	    $random_string = '';
+	    $input_length    = strlen($permitted_chars);
+	    $random_string   = '';
 
-	    for($i = 0; $i < $strength; $i++) {
+	    for($i = 0; $i < $strength; $i++)
+      {
 	        $random_character = $permitted_chars[mt_rand(0, $input_length - 1)];
 	        $random_string .= $random_character;
 	    }

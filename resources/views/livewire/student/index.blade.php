@@ -101,11 +101,12 @@ document.addEventListener('livewire:load', () => {
         errorsAlertSelectSport();
     });
 
-    // Clear Select2
+    // Clear Select2_create
     @this.on('clearSelet2', () => {
 
         $(document).ready(function() {
-          $(".js-example-basic-multiple").val(null).trigger("change");
+          $(".js-example-basic-multiple-create").val(null).trigger("change");
+          $(".js-example-basic-multiple-edit").val(null).trigger("change");
         });
 
     });
@@ -114,20 +115,20 @@ document.addEventListener('livewire:load', () => {
 
 document.addEventListener("DOMContentLoaded", () => {
 
-    $(".js-example-basic-multiple").select2();//Inicializar
+    $(".js-example-basic-multiple-create").select2();//Inicializar
 
     $(document).ready(function() {
 
-        $(".js-example-basic-multiple").select2();
+        $(".js-example-basic-multiple-create").select2();
 
-        $(".js-example-basic-multiple").select2({
+        $(".js-example-basic-multiple-create").select2({
           placeholder: "Seleccione deporte",
           allowClear: true
         });
 
-        $(".js-example-basic-multiple").on('change', function (e) {
+        $(".js-example-basic-multiple-create").on('change', function (e) {
 
-            var data = $(".js-example-basic-multiple").select2("val");
+            var data = $(".js-example-basic-multiple-create").select2("val");
 
             @this.set('sport', data);
 
@@ -135,4 +136,30 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  $(".js-example-basic-multiple-edit").select2();//Inicializar
+
+  Livewire.hook('message.processed', (message, component) => {
+
+    $(document).ready(function() {
+
+      $(".js-example-basic-multiple-edit").select2({
+        placeholder: "Seleccione deporte",
+        allowClear: true
+      });
+
+      $(".js-example-basic-multiple-edit").on('change', function (e) {
+
+          var data = $(".js-example-basic-multiple-edit").select2("val");
+
+          @this.set('sport', data);
+
+      });
+    });
+
+  })
+});
+
 </script>
