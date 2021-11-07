@@ -141,6 +141,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   $(".js-example-basic-multiple-edit").select2();//Inicializar
 
+  //Se llama después de que Livewire procese todos los efectos secundarios 
+  //(incluida la diferencia de DOM) de un mensaje
   Livewire.hook('message.processed', (message, component) => {
 
     $(document).ready(function() {

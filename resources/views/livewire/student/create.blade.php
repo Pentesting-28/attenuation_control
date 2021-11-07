@@ -72,7 +72,7 @@
                         <label for="validationCustomUsername2">Tipo de deporte</label>
                         <div class="input-group" wire:ignore>
 
-                          <select class="js-example-basic-multiple" wire:model="sport" name="sport[]" multiple="multiple" style="width: 100%">
+                          <select class="js-example-basic-multiple-create" wire:model="sport" name="sport[]" multiple="multiple" style="width: 100%">
                               @foreach ($sports as $index => $sport)
                               <option value="{{ $sport->id }}">{{ $sport->name }}</option>
                               @endforeach
