@@ -7,6 +7,8 @@ use Livewire\Component;
 use App\Models\Student\{Attendance, Student};
 use Livewire\WithPagination;
 use Illuminate\Database\Eloquent\Builder;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\AttendanceExport;
 
 class Index extends Component
 {
@@ -47,7 +49,12 @@ class Index extends Component
 								 ->has('student')
 		                         ->orderBy('created_at', 'ASC')
 		                         ->paginate(10);
-
+		                         
         return view('livewire.attendance.index', compact('attendances'));
+    }
+
+    public function generalAttendancExport()
+    {
+    	return Excel::download(new AttendanceExport(), 'Control-de-asistencias ('.now()->format('d-m-Y').').xlsx');
     }
 }

@@ -21,6 +21,9 @@
                     {{-- <div class="col-lg-4 col-md-4 justify-content-between float-right">
                         <a title="Registrar Usuario" data-toggle="modal" data-target="#createModal" class="btn btn-secondary float-right" style="background: #6c63ff; border-radius: 5px;"><i class="fas fa-address-card"></i></a>
                     </div> --}}
+                    <a title="Editar Usuario" data-toggle="modal" data-target="#updateModal" wire:click="generalAttendancExport()">
+                        <button class="btn pt-0" style="background: white;"><i class="fas fa-edit" style="font-size: 20px;"></i></button>
+                    </a>
                 </div>
                 <div class="btn-toolbar justify-content-between float-right py-4" role="toolbar" aria-label="Toolbar with button groups">
                   <div class="input-group">

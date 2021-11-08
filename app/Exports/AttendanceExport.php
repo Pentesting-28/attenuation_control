@@ -6,14 +6,13 @@ use Maatwebsite\Excel\Concerns\FromCollection;
 // use App\Product;
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
-class AttendanceExport implements FromCollection
+
+class AttendanceExport implements FromView
 {
 
 	public function view(): View
     {
-        // return view('exports.products', [
-            // 'products' => Product::all()
-        // ]);
+        return view('reports.exports.general_attendance');
     }
     /**
     * @return \Illuminate\Support\Collection
