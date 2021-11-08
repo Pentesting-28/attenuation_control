@@ -3,15 +3,21 @@
 namespace App\Http\Livewire\Student;
 
 use Livewire\Component;
-use App\Models\Student\{Student,Sport};
+use App\Models\Student\{
+  Student,
+  Sport
+};
 use Livewire\WithPagination;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Validation\ValidationException;
+use App\Traits\UtilTrait;
 use DB;
 
 class Index extends Component
 {
   	use WithPagination;
+    
+    use UtilTrait;
 
     protected $paginationTheme = 'bootstrap';
 
@@ -230,30 +236,6 @@ class Index extends Component
 
 
 
-
-     /**
-     * Generate random token
-     */
-    public function generateRandom($strength)
-    {
-	    $permitted_chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-	    $input_length    = strlen($permitted_chars);
-	    $random_string   = '';
-
-	    for($i = 0; $i < $strength; $i++)
-      {
-	        $random_character = $permitted_chars[mt_rand(0, $input_length - 1)];
-	        $random_string .= $random_character;
-	    }
-
-	    return $random_string;
-    }
-
-
-
-
-
-    
 
     public function generateNewCode()
     {
