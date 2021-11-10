@@ -60,13 +60,20 @@
                     <div class="sb-nav-link-icon"><i class="fas fa-lg fa-running"></i></div>
                     Deportes
                 </a>
+
                 <a class="nav-link" href="{{ route('student.index') }}">
                     <div class="sb-nav-link-icon"><i class="fas fa-lg fa-users"></i></div>
                     Alumnos
                 </a>
+
                 <a class="nav-link" href="{{ route('attendance.index') }}">
                     <div class="sb-nav-link-icon"><i class="fas fa-lg fa-clipboard-list"></i></div>
                     Asistencias
+                </a>
+
+                <a class="nav-link" href="{{ route('absence_justification.index') }}">
+                    <div class="sb-nav-link-icon"><i class="fas fa-lg fa-clipboard-list"></i></div>
+                    Inasistencias/Justificadas
                 </a>
             </div>
         </div>

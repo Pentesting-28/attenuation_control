@@ -7,7 +7,7 @@ use App\Http\Livewire\Template\Dashboard;
 /*Crud Student*/
 use App\Http\Livewire\Student\Index as StudentIndex;
 
-/*Attendance Register*/
+/*Render Data Attendance Register*/
 use App\Http\Livewire\Student\Attendance as AttendanceRegister;
 
 /*Crud Attendance*/
@@ -15,6 +15,9 @@ use App\Http\Livewire\Attendance\Index as AttendanceIndex;
 
 /*Crud Sport*/
 use App\Http\Livewire\Sport\Index as SportIndex;
+
+/*Render Data AbsenceJustification*/
+use App\Http\Livewire\AbsenceJustification\Index as AbsenceJustificationIndex;
 
 
 use Illuminate\Support\Facades\Route;
@@ -49,5 +52,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/attendance', AttendanceIndex::class)->name('attendance.index');
 
     Route::get('/sport', SportIndex::class)->name('sport.index');
+
+    Route::get('/absence_justification', AbsenceJustificationIndex::class)->name('absence_justification.index');
+
 
 });
