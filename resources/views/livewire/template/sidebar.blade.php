@@ -75,6 +75,11 @@
                     <div class="sb-nav-link-icon"><i class="fas fa-lg fa-clipboard-list"></i></div>
                     Inasistencias/Justificadas
                 </a>
+
+                <a class="nav-link" href="{{-- route('absence_justification.index') --}}">
+                    <div class="sb-nav-link-icon"><i class="fas fa-lg fa-list-ol"></i></div>
+                    Alumnos Por Deportes
+                </a>
             </div>
         </div>
         {{-- <div class="sb-sidenav-footer">
