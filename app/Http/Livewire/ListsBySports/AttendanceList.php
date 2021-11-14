@@ -13,6 +13,9 @@ class AttendanceList extends Component
 
     public function mount($sport)
     {
-    	dd($sport);
+    	if(is_numeric($sport))
+    	{
+    		dd($sport);
+    	}
     }
 }
