@@ -19,6 +19,15 @@ use App\Http\Livewire\Sport\Index as SportIndex;
 /*Render Data AbsenceJustification*/
 use App\Http\Livewire\AbsenceJustification\Index as AbsenceJustificationIndex;
 
+/*
+	Render Student List
+	Render Attendance List
+ */
+use App\Http\Livewire\ListsBySports\{
+	StudentList as StudentListIndex,
+	AttendanceList as AttendanceListIndex,
+};
+
 
 use Illuminate\Support\Facades\Route;
 
@@ -54,6 +63,11 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/sport', SportIndex::class)->name('sport.index');
 
     Route::get('/absence_justification', AbsenceJustificationIndex::class)->name('absence_justification.index');
+
+    Route::get('/student_list/{sport}', StudentListIndex::class)->name('student_list.index');
+
+    Route::get('/attendance_list/{sport}', AttendanceListIndex::class)->name('attendance_list.index');
+
 
 
 });

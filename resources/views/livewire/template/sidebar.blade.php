@@ -76,10 +76,31 @@
                     Inasistencias/Justificadas
                 </a>
 
-                <a class="nav-link" href="{{-- route('absence_justification.index') --}}">
-                    <div class="sb-nav-link-icon"><i class="fas fa-lg fa-list-ol"></i></div>
-                    Alumnos Por Deportes
-                </a>
+                <div class="accordion" id="accordionExample">
+                    <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        <div class="sb-nav-link-icon"><i class="fas fa-list-ol"></i></div>
+                        Lista Por Deportes
+                    </a>
+
+                    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                        <div class="card-body">
+                            @foreach ($sports as $sport)
+                            <div class="text text-white pt-1">
+                                {{ $sport->name }}
+                                <div wire:key="collapseThree{{ $sport->id }}">
+                                    <a class="nav-link" href="{{ route('student_list.index', $sport->id) }}">
+                                        Lista de Alumnos
+                                    </a>
+                                    <a class="nav-link" href="{{ route('attendance_list.index', $sport->id) }}">
+                                        Lista de Asistencia
+                                    </a>
+                                </div>
+                            </div>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
         {{-- <div class="sb-sidenav-footer">
