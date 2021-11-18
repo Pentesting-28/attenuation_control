@@ -39,7 +39,7 @@
 
                                 </tr>
                               </thead>
-                              @foreach($data['students'] as $student)
+                              @foreach($students as $student)
                               <tbody>
                                 <tr>
                                   <th>{{ $student->id }}</th>
@@ -47,16 +47,20 @@
                                   <td>{{ $student->last_name }}</td>
                                   <td>{{ $student->gender }}</td>
                                   <td>{{ $student->code }}</td>
-                                  <td>{{ $data['sport']['name'] }}</td>
+                                  @foreach ($student->sports as $sport)
+                                      @if($sport->id == $id_sport)
+                                          <td>{{ $sport->name }}</td>
+                                      @endif
+                                  @endforeach
                                 </tr>
                               </tbody>
                               @endforeach
                         </table>
-                        {{ $data['students']->links() }}
+                        {{ $students->links() }}
                     </div>
                 </div>
             </div>
-            @if($data['students']->count() == 0)
+            @if($students->count() == 0)
                 <div class="card">
                     <div class="card-body text-center">
                         No tiene alumnos registrados.

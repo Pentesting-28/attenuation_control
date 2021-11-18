@@ -30,4 +30,8 @@ class Student extends Model
     public function absence_justification(){
         return $this->hasOne('App\Models\Student\AbsenceJustification');
     }
+
+    public function attendance(){
+        return $this->hasOne('App\Models\Student\Attendance');
+    }
 }
