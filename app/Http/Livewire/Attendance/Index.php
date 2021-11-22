@@ -49,7 +49,7 @@ class Index extends Component
 								 ->has('student')
 		                         ->orderBy('created_at', 'ASC')
 		                         ->paginate(10);
-		                         
+
         return view('livewire.attendance.index', compact('attendances'));
     }
 

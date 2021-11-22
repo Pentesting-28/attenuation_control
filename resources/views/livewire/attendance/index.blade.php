@@ -21,19 +21,27 @@
                     {{-- <div class="col-lg-4 col-md-4 justify-content-between float-right">
                         <a title="Registrar Usuario" data-toggle="modal" data-target="#createModal" class="btn btn-secondary float-right" style="background: #6c63ff; border-radius: 5px;"><i class="fas fa-address-card"></i></a>
                     </div> --}}
-                    <a title="Editar Usuario" data-toggle="modal" data-target="#updateModal" wire:click="generalAttendancExport()">
-                        <button class="btn pt-0" style="background: white;"><i class="fas fa-edit" style="font-size: 20px;"></i></button>
-                    </a>
+                    
                 </div>
-                <div class="btn-toolbar justify-content-between float-right py-4" role="toolbar" aria-label="Toolbar with button groups">
-                  <div class="input-group">
-                    <div class="input-group-prepend">
-                          <input title="Buscar por Nombre" wire:model="filter.student_name" type="text" class="form-control mx-1" name="student_name" id="student_name" placeholder="Nombre">
-                          <input title="Buscar por Apellido" wire:model="filter.student_last_name" type="text" class="form-control mx-1" name="student_last_name" id="student_last_name" placeholder="Apellido">
-                          <input title="Buscar por Codigo" wire:model="filter.student_code" type="text" class="form-control mx-1" name="student_code" id="student_code" placeholder="Codigo">
+                <div class="row py-4">
+                  <div class="col-md-4">
+                    <a title="Editar Usuario" data-toggle="modal" data-target="#updateModal" wire:click="generalAttendancExport()">
+                        <button class="btn  btn-success" style="color: white;"><i class="fas fa-lg fa-file-excel"></i> Generar Reporte</button>
+                    </a>
+                  </div>
+                  <div class="col-md-8"> 
+                    <div class="btn-toolbar justify-content-between float-right" role="toolbar" aria-label="Toolbar with button groups">
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                              <input title="Buscar por Nombre" wire:model="filter.student_name" type="text" class="form-control mx-1" name="student_name" id="student_name" placeholder="Nombre">
+                              <input title="Buscar por Apellido" wire:model="filter.student_last_name" type="text" class="form-control mx-1" name="student_last_name" id="student_last_name" placeholder="Apellido">
+                              <input title="Buscar por Codigo" wire:model="filter.student_code" type="text" class="form-control mx-1" name="student_code" id="student_code" placeholder="Codigo">
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
+
 
                     <div class="table-responsive py-3">
                         <table class="table" width="100%" cellspacing="0">
