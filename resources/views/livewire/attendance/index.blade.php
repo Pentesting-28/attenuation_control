@@ -11,8 +11,6 @@
                 {{-- @include('livewire.student.destroy') --}}
                 {{-- @include('livewire.student.create') --}}
                 {{-- @include('livewire.student.edit') --}}
-
-
                 <div class="row align-items-end">
                     <div class="col-lg-8 col-md-8">
                         <h4>Listado de Asistencias</h4>

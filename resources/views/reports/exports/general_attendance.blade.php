@@ -1,96 +1,124 @@
-{{-- <center> --}}
-{{-- <style type="text/css">
-  h3{
-    text-align: center;
-  }
-</style> --}}
-<!-- Horizontal alignment -->
 
-{{-- <h3><b>REGISTRO DE ASISTENCIA: OCTUBRE 2021</b></h3>
-<h2 style="background-color: yellow;"><b>MAÑANA</b></h2><br>
-<th>NOMBRE DEL ESTUDIANTE</th><td></td><td></td> --}}
-    {{-- <td align="right">Big title</td> --}}
+@php
+  // if( count( $data["show_dates_and_days"]["month"] ) > 0)
+  // {
+  //   $width_th = (8 + count( $data["show_dates_and_days"]["month"]) )/2;
+  // }
+@endphp
 
-    <!--  Vertical alignment -->
-    {{-- <td valign="middle">Bold cell</td> --}}
-
-    <!-- Rowspan -->
-    {{-- <td rowspan="3">Bold cell</td> --}}
-
-    {{-- Colspan --}}
-    {{-- <td colspan="6">Italic cell</td> --}}
-
-    <!-- Width -->
-    {{-- <td width="100">Cell with width of 100</td> --}}
-
-    <!-- Height -->
-    {{-- <td height="100">Cell with height of 100</td> --}}
-{{-- </center> --}}
 <table>
   <tbody>
      <tr>
-       <td colspan="8"style="background-color: white;">
-         
+       <td colspan="5"style="background-color: white;">
        </td>
-       <td colspan="10"style="background-color: white;">
+       <td colspan="24"style="background-color: white;">
         <b>"HERMANOS ENDERICA SALGADO"</b>
        </td>
       </tr>
-
       <tr>
-       <td colspan="8"style="background-color: white;">
-         
+       <td colspan="5"style="background-color: white;">
        </td>
-
-       <td colspan="10"style="background-color: white;">
-         <b>REGISTRO DE ASISTENCIA: OCTUBRE 2021</b>
+       <td colspan="24"style="background-color: white;">
+         <b>REGISTRO DE ASISTENCIA: {{ \Carbon\Carbon::now()->startofMonth()->format('Y-m-d') }}</b>
        </td>
       </tr>
-
       <tr>
-       <td colspan="9"style="background-color: yellow;">
-         
+       <td colspan="8"style="background-color: yellow;">
        </td>
-       <td colspan="9"style="background-color: yellow;">
+       <td colspan="21"style="background-color: yellow;">
           <b>MAÑANA</b>
        </td>
      </tr>
   </tbody>
-</table>
 
-<table>
   <thead>
      <tr>  
-       <th>NRO.</th>
-       <th>NOMBRE DEL ESTUDIANTE</th><td></td><td></td>
-       <th>ESTADO</th>
-       <th>RECURSO</th>
-       <th>OBSERVACIONES HORARIO</th><td></td><td></td>
-       <th>PAGO</th>
-       <th>OBSERVACIONES</th>
+       <th align="left" width="60%">NRO.</th>
+       <th align="left" width="280%">NOMBRE DEL ESTUDIANTE</th>
+       <th align="center">ESTADO</th>
+       <th align="left">CÓDIGO</th>
+       <th align="left" width="290%">OBSERVACIONES HORARIO</th>
+
+       @if( count( $data["show_dates_and_days"]["month"] ) > 0)
+         @for($i = 0; $i < count( $data["show_dates_and_days"]["month"] ); $i++)
+
+       <th align="left">{{ $data["show_dates_and_days"]["month"][$i] }}</th>
+
+         @endfor
+       @endif
+
+       <th align="left">PAGO</th>
+       <th align="left" width="280%">OBSERVACIONES</th>
      </tr>
   </thead>
   <tbody>
-      @foreach ($attendances as $student)
-       <tr>
-        <td align="left">{{ $student->id }}</td>
-        <td>{{ $student->name }} {{ $student->last_name }}</td>
-        <td></td>
-        <td>{{ $student->status == true ? 'P':'' }}</td>
-        <td>{{ $student->code }}<td>
-        <td>N/A</td><td></td><td></td>
-        <td>Si</td>
-        @php
-          if (!empty($student->absence_justification->description))
-          {
-            $justification_description = $student->absence_justification->description;
-          }
-          else{
-            $justification_description = '';
-          }
-        @endphp
-        <td>{{ strip_tags($justification_description) }}</td>
-      </tr>
-    @endforeach
+      @for ($i = 0; $i < count($data["students"]); $i++)
+        <tr>
+          <td align="left" style="background-color: #d0cecf;">{{ $data["students"][$i]->id }}</td>
+          <td align="left" style="background-color: {{ colorParImpar($i) }};">{{ $data["students"][$i]->name }} {{ $data["students"][$i]->last_name }}</td>
+          <td align="left" style="background-color: {{ colorParImpar($i) }};">{{ ($data["students"][$i]->status == true ? 'P' :'') }}</td>
+          <td align="left" style="background-color: {{ colorParImpar($i) }};">{{ $data["students"][$i]->code }}</td>
+          <td align="left" style="background-color: {{ colorParImpar($i) }};">{{ 'N/A' }}</td>
+
+          @if( count( $data["show_dates_and_days"]["week"] ) > 0 && $i == 0)
+            
+            @for($j = 0; $j < count( $data["show_dates_and_days"]["week"] ); $j++)
+              
+          <td align="left" width="40%" style="background-color: {{ tdColorTable($data["show_dates_and_days"]["month"][$j], $j) }};">{{ $data["show_dates_and_days"]["week"][$j] }}</td>
+
+            @endfor
+
+          @else
+          
+            @for($k = 0; $k < count( $data["show_dates_and_days"]["week"] ); $k++)
+
+            <td align="left" style="background-color: {{ tdColorTable($data["show_dates_and_days"]["month"][$k], $k) }};"></td>
+            @endfor
+
+          @endif
+
+          <td align="left" style="background-color: {{ colorParImpar($i) }};">{{ 'N/A' }}</td>
+          <td align="left" style="background-color: {{ colorParImpar($i) }};">{{ strip_tags((!empty($data["students"][$i]->absence_justification->description) ? $data["students"][$i]->absence_justification->description : '')) }}</td>
+        </tr>
+      @endfor
   </tbody>
 </table>
+
+@php
+
+  function tdColorTable($data, $indice)
+  {
+    switch (true) {
+      case $data == '01':
+        $color = "#a8cf8d";
+      break;
+      case $data >= '02' && $data <= '08':
+        $color = "#bdd6ee";
+      break;
+      case $data >= '09' && $data <= '15':
+        $color = "#ffe596";
+      break;
+      case $data >= '16' && $data <= '22':
+        $color = "#fbe3d5";
+      break;
+      case $data >= '23':
+        $color = "#f2b084";
+      break;
+    }
+
+    return $color;
+  }
+
+  function colorParImpar($indice)
+  {
+    if( ($indice+1)%2==0 )
+    {
+        $color = "#d0cecf";
+    }else{
+        $color = "";
+    }
+
+    return $color;
+  }
+
+@endphp
