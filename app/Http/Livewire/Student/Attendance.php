@@ -64,7 +64,7 @@ class Attendance extends Component
     public function entryAlumn()
     {
         $Object = new DateTime();  
-        $Object->setTimezone(new DateTimeZone('America/Caracas'));
+        $Object->setTimezone(new DateTimeZone('America/Guayaquil'));
         $hour = $Object->format("h:i:s a");
         // $DateAndTime = $Object->format("d-m-Y h:i:s a");
 
@@ -77,6 +77,23 @@ class Attendance extends Component
         {
             if(count($student->toArray()) > 0)//si exite el alumno
             {
+                AttendanceModel::create([
+                    'hour'       => $hour,
+                    'status'     => true,
+                    'student_id' => $student[0]->id,
+                ]);
+    
+                $this->emit('confirm_register_entry');
+    
+                $this->clearProperty();
+
+                /**
+                 * Lo que esta comentado era la validacion para un registro por dia.
+                 * Por eso eraque no te dejaba registrar una nueva entrada porque validamos
+                 * Por Status y por fechas.
+                 **/
+
+
                 // $absence_justification = AbsenceJustification::where('student_id', $student[0]->id)
                 //                                   ->where('status', '!=' , false)
                 //                                   ->latest()
@@ -85,23 +102,23 @@ class Attendance extends Component
                 // if(count($absence_justification->toArray()) > 0)
                 // {
                 //     dd('pinto bien');
-                    $attendance = AttendanceModel::where('student_id', $student[0]->id)
-                                                 ->latest()
-                                                 ->get();
+                    // $attendance = AttendanceModel::where('student_id', $student[0]->id)
+                    //                              ->latest()
+                    //                              ->get();
 
-                    if(count($attendance->toArray()) > 0)//si exite un primer registro
-                    {
-                        if( Carbon::now()->format('Y-m-d') <= $student[0]->created_at->format('Y-m-d') && $attendance[0]->status == false )
-                        {
-                            $this->band = true;
-                        }
-                        else{
-                            $this->emit('error_validation_info_entry');
-                        }
-                    }
-                    else{
-                        $this->band = true;
-                    }
+                    // if(count($attendance->toArray()) > 0)//si exite un primer registro
+                    // {
+                        // if( Carbon::now()->format('Y-m-d') <= $student[0]->created_at->format('Y-m-d') && $attendance[0]->status == false )
+                        // {
+                        //     $this->band = true;
+                        // }
+                        // else{
+                        //     $this->emit('error_validation_info_entry');
+                        // }
+                    // }
+                    // else{
+                    //     $this->band = true;
+                    // }
                 // }
                 // else{
                 //     // dd('pinto mal');
@@ -116,18 +133,18 @@ class Attendance extends Component
             $this->emit('error_validation_info');
         }
 
-        if( $this->band == true )
-        {
-            AttendanceModel::create([
-                'hour'       => $hour,
-                'status'     => true,
-                'student_id' => $student[0]->id,
-            ]);
+        // if( $this->band == true )
+        // {
+        //     AttendanceModel::create([
+        //         'hour'       => $hour,
+        //         'status'     => true,
+        //         'student_id' => $student[0]->id,
+        //     ]);
 
-            $this->emit('confirm_register_entry');
+        //     $this->emit('confirm_register_entry');
 
-            $this->clearProperty();
-        }
+        //     $this->clearProperty();
+        // }
     }
 
 
@@ -139,7 +156,7 @@ class Attendance extends Component
     public function exitAlumn()
     {
         $Object = new DateTime();  
-        $Object->setTimezone(new DateTimeZone('America/Caracas'));
+        $Object->setTimezone(new DateTimeZone('America/Guayaquil'));
         $hour = $Object->format("h:i:s a");
         // $DateAndTime = $Object->format("d-m-Y h:i:s a");
         
@@ -156,8 +173,8 @@ class Attendance extends Component
 
                 if(count($attendance->toArray()) > 0 )
                 {
-                    if( Carbon::now()->format('Y-m-d') <=  $student[0]->created_at->format('Y-m-d') && $attendance[0]->status == true)
-                    {
+                    // if( Carbon::now()->format('Y-m-d') <=  $student[0]->created_at->format('Y-m-d') && $attendance[0]->status == true)
+                    // {
                         AttendanceModel::create([
                             'hour'       => $hour,
                             'status'     => false,
@@ -167,10 +184,10 @@ class Attendance extends Component
                         $this->emit('confirm_register_entry');
 
                         $this->clearProperty();                    
-                    }
-                    else{
-                        $this->emit('error_validation_info_exit');
-                    }
+                    // }
+                    // else{
+                    //     $this->emit('error_validation_info_exit');
+                    // }
                 }
                 else{
                     $this->emit('error_validation_info_no_register');
