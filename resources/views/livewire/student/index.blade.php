@@ -59,7 +59,7 @@
                                     <a title="Editar Alumnos" data-toggle="modal" data-target="#updateModal" wire:click="modal('edit',{{ $student->id }})">
                                         <button class="btn pt-0" style="background: white;"><i class="fas fa-edit" style="font-size: 20px;"></i></button>
                                     </a>
-                                
+
                                     <button title="Eliminar Alumnos" type="button" class="btn pt-0" data-toggle="modal" data-target="#destroyModal" wire:click="modal('destroy',{{ $student->id }})"
                                             class="btn btn-danger text-white mr-2 text-capitalize"
                                             style="background: white">
@@ -141,7 +141,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   $(".js-example-basic-multiple-edit").select2();//Inicializar
 
-  //Se llama después de que Livewire procese todos los efectos secundarios 
+  //Se llama después de que Livewire procese todos los efectos secundarios
   //(incluida la diferencia de DOM) de un mensaje
   Livewire.hook('message.processed', (message, component) => {
 

@@ -80,7 +80,8 @@ class AttendanceExport implements FromView
 
     public function getWeekdays($data)
     {
-        switch ($data) {
+        switch ($data)
+        {
             case 'Mon':
                 $weekday = "L";
             break;
