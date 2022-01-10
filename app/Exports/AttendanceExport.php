@@ -2,16 +2,10 @@
 
 namespace App\Exports;
 
-use Maatwebsite\Excel\Concerns\FromCollection;
-use App\Models\Student\{Attendance, Student};
-use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
-use Maatwebsite\Excel\Concerns\WithHeadings;
-use Maatwebsite\Excel\Concerns\WithMapping;
-
+use Illuminate\Contracts\View\View;
+use App\Models\Student\Student;
 use Carbon\Carbon;
-use DateTime;
-use DateTimeZone;
 
 class AttendanceExport implements FromView
 {
@@ -40,6 +34,9 @@ class AttendanceExport implements FromView
         return view('reports.exports.general_attendance', compact('data'));
 
     }
+
+
+
 
     public function showDatesAndDays()
     {
@@ -77,6 +74,9 @@ class AttendanceExport implements FromView
             "days_of_the_month_format" => $array_days_of_the_month_format,
         ];
     }
+
+
+
 
     public function getWeekdays($data)
     {

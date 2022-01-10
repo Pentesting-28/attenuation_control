@@ -29,6 +29,11 @@
      </tr>
   </tbody>
 
+
+
+
+
+  {{-------------  ENSAMBLANDO LOS ENCABEZADO DE LA TABLA  -----------------}}
   <thead>
      <tr>
        <th rowspan="2" style="text-align: center;" width="60%">NRO.</th>
@@ -45,6 +50,7 @@
 
         @for( $i = 0; $i < count( $data["show_dates_and_days"]["month"] ); $i++ )
 
+            {{-- DIAS DEL MES. --}}
             <th style="text-align: center;">{{ $data["show_dates_and_days"]["month"][$i] }}</th>
 
         @endfor
@@ -57,29 +63,42 @@
 
      </tr>
   </thead>
+  {{-------------------------------------------------------------------------------}}
+
+
+
+
+
+  {{-------------  ENSAMBLANDO LOS DATOS CORRESPONDIENTE A LOS ENCABEZADO DE LA TABLA  -----------------}}
   <tbody>
       @for ( $i = -1; $i < count( $data["students"] ); $i++ )
         <tr>
 
           @if( count( $data["show_dates_and_days"]["week"] ) > 0 && $i != -1 )
 
+            {{-- NRO. --}}
             <td style="background-color: #d0cecf; text-align: center;">
                 {{ $data["students"][$i]->id }}
             </td>
 
+            {{-- NOMBRE DEL ESTUDIANTE --}}
             <td style="background-color: {{ colorParImpar( $i ) }}; text-align: center;">
                 {{ $data["students"][$i]->name }} {{ $data["students"][$i]->last_name }}
             </td>
 
+            {{-- ESTADO --}}
             <td style="background-color: {{ colorParImpar( $i ) }}; text-align: center;">
+
                 {{-- paymentStatusValidation --}}
                 {{ paymentStatusValidation( $data["students"][$i]->status ) }}
             </td>
 
+            {{-- CÓDIGO --}}
             <td style="background-color: {{ colorParImpar( $i ) }}; text-align: center;">
                 {{ $data["students"][$i]->code }}
             </td>
 
+            {{-- OBSERVACIONES HORARIO --}}
             <td style="background-color: {{ colorParImpar( $i ) }}; text-align: center;">
                 {{ 'N/A' }}
             </td>
@@ -90,6 +109,7 @@
 
             @for( $j = 0; $j < count( $data["show_dates_and_days"]["week"] ); $j++ )
 
+            {{-- DIAS DE LA SEMANA SEGUN EL MES. --}}
             <td width="40%" style="background-color: {{ tdColorTable( $data["show_dates_and_days"]["month"][$j], $j ) }}; text-align: center;">
                 {{ $data["show_dates_and_days"]["week"][$j] }}
             </td>
@@ -97,6 +117,7 @@
             @endfor
 
           @else
+            {{-------------  ASISTENCIAS DEL ESTUDIANTE POR DIAS DE LA SEMANA. -----------------}}
             @if ( count( $data["students"][$i]->attendance ) > 0 )
 
                 @php
@@ -116,42 +137,61 @@
                 @endphp
 
                 @for ( $k = 0; $k < count( $data["show_dates_and_days"]["week"] ); $k++ )
+
                     <td style="background-color: {{ tdColorTable( $data["show_dates_and_days"]["month"][$k], $k ) }}; text-align: center;">
 
                         @for ( $h=0; $h < count( $array_attendance_total ); $h++ )
-                            {{-- attendanceValidate --}}
+
+                            {{-- VALIDACION DE ASISTENCIAS --}}
                             {{ attendanceValidate( $array_attendance_total[$h], $data["days_of_the_month_format"][$k] ) }}
+
                         @endfor
 
                     </td>
+
                 @endfor
+                {{-------------------------------------------------------------------------------}}
             @else
+                {{-------------  SI EL ESTUDIANTE NO TIENE REGISTRO DE ASISTENCIAS CONFIGURAMOS  -----------------}}
                 @for ( $k = 0; $k < count( $data["show_dates_and_days"]["week"] ); $k++ )
+
+                {{-------------  COLOREAMOS SEGUN LOS DIAS DE LA SEMANA Y DEJAMOS EN VACIOS  -----------------}}
                     <td style="background-color: {{ tdColorTable( $data["show_dates_and_days"]["month"][$k], $k ) }}; text-align: center;">
                         {{ '' }}
                     </td>
+
                 @endfor
+                {{-------------------------------------------------------------------------------}}
             @endif
           @endif
 
+          {{-------------  CONTINUAMOS ENSAMBLANDO LOS DATOS CORRESPONDIENTE AL RESTO DE LOS ENCABEZADO DE LA TABLA  -----------------}}
           @if( count( $data["show_dates_and_days"]["week"] ) > 0 && $i != -1 )
+
+            {{-- PAGO --}}
             <td style="background-color: {{ colorParImpar($i) }}; text-align: center;">
                 {{ 'N/A' }}
             </td>
+
+            {{-- OBSERVACIONES --}}
             <td style="background-color: {{ colorParImpar($i) }}; text-align: center;">
+
+                {{-- VALIDAMOS SI EXITEN INASISTENCIAS JUSTIFICADAS --}}
                 <center>
-                {{-- observationsValidation --}}
                 {{ strip_tags( ( !empty( $data["students"][$i]->absence_justification->description ) ? $data["students"][$i]->absence_justification->description : 'X' ) ) }}
                 </center>
+
             </td>
           @endif
        </tr>
       @endfor
   </tbody>
+  {{----------------------------------------------------------------------------------------------------}}
 </table>
 
 @php
 
+/*-- FUNCION PARA COLOREAR LOS CAMPOS DE LOS DIAS DE LA SEMANA --*/
   function tdColorTable( $data, $indice )
   {
     switch (true)
@@ -176,6 +216,8 @@
     return $color;
   }
 
+
+  /*-- FUNCION PARA COLOREAR LAS FILAS DE LA TABLA --*/
   function colorParImpar( $indice )
   {
     if( ( $indice+1 ) %2==0 )
@@ -188,6 +230,8 @@
     return $color;
   }
 
+
+  /*-- FUNCION PARA VALIDAR EL ESTUS DE PAGO --*/
   function paymentStatusValidation( $status )
   {
     if( $status == true )
@@ -200,6 +244,8 @@
     return $resul;
   }
 
+
+  /*-- FUNCION PARA LAS ASISTENCIAS HE INASISTENCIAS EN EL MES CURSANTE --*/
   function attendanceValidate( $array_attendance_total, $days_of_the_month_format )
   {
     if( $array_attendance_total == $days_of_the_month_format )
