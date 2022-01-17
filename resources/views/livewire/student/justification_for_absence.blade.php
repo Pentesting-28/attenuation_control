@@ -12,11 +12,11 @@
                 <div class="container">
                     <div class="col-md-12 " align="center">
 
-                      @if ($data_student != null)
+                        @if ($data_student_select != null)
 
-                        <h4 >{{ $data_student->name }} {{ $data_student->last_name }}</h4>
+                            <h4>{{ $data_student_select->name }} {{ $data_student_select->last_name }}</h4>
 
-                      @endif
+                        @endif
 
                     </div>
           				<form wire:submit.prevent="absenceJustificationStore()" method="POST">

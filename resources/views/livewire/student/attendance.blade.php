@@ -1,4 +1,15 @@
 <div>
+
+    <style>
+        .payment-form-check {
+            width: 300px;
+            height: 100px;
+            border: 3px solid #555;
+            text-align: center;
+            background: white;
+        }
+    </style>
+
     <main class="py-4">
 	<div class="container">
 		@include('livewire.student.justification_for_absence')
@@ -6,94 +17,142 @@
 				<div class="text-center">
 					<img class="btAltLogo" src="{{ asset('images/centrohes2.png') }}" id="logo2" alt="Hermanos Enderica Salgado">
 				</div>
-    		<div class="card-body" >
-    			<div class="col-md-12 " align="center">
+                <div class="card-body" >
+                    <div class="col-md-12 " align="center">
 
-                  @if ($data_student != null)
+                        @if ($data_student_select != null)
+                            <h4 >{{ $data_student_select->last_name }} {{ $data_student_select->name }}</h4>
+                        @endif
 
-                    <h4 >{{ $data_student->name }} {{ $data_student->last_name }}</h4>
+                    </div>
 
-                  @endif
+                    <div wire:ignore>
+                        <ul class="nav nav-tabs" id="myTab" role="tablist" >
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link active" id="form-entry" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Entrada</a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link" id="form-exit" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Salida</a>
+                        </li>
+                        </ul>
 
+                        <div class="tab-content" id="myTabContent" >
+                        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="form-entry" >
+
+                            <div class="container pt-4">
+                                <form wire:submit.prevent="entryAlumn()" method="POST">
+                                    <div class="form-row">
+                                        <div class="col-md-4 mb-3">
+                                            <label for="validationCustom01">Datos personales</label>
+                                            <input wire:model="last_name" type="text" name="last_name" id="last_name" class="form-control" id="validationCustom01"  placeholder="Apellido y Nombre">
+                                            @error('last_name') <span class="error text-danger">{{ $message }}</span>@enderror
+                                        </div>
+
+                                        <div class="col-md-4 mb-5" >
+                                            <label for="validationCustom03">Codigo</label>
+                                            <input wire:model="code" type="text" class="form-control mx-2" id="validationCustom03"  placeholder="Codigo">
+                                            @error('code') <span class="error text-danger">{{ $message }}</span>@enderror
+                                        </div>
+
+                                        <div class="payment-form-check mx-4" id="payment-form-check">
+                                            <div class="py-1">
+                                                <label for="validationCustom04">Pago</label>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" wire:model="select_status_payment" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="1" disabled>
+                                                        <label class="form-check-label" for="inlineRadio1">SI</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" wire:model="select_status_payment" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="0" disabled>
+                                                        <label class="form-check-label" for="inlineRadio2">NO</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="modal-footer" >
+
+                                        <button type="button" id="btn-clear-up"  class="btn btn-sm btn-success" title="Limpiar" style="display:none;">Limpiar</button>
+                                        <button type="button" id="btn-justify-absence" wire:click="$emit('validateData')" class="btn btn-sm btn-dark" title="Justificar Inasistencia" style="display:none;">Justificar Inasistencia</button>
+                                        <button type="submit" id="btn-register" class="btn btn-sm btn-success" title="Guardar Registro" style="display:none;">Registrar</button>
+
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
+                        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="form-exit">
+                            <div class="container pt-4">
+                                <form wire:submit.prevent="exitAlumn()" method="POST">
+                                    <div class="form-row">
+
+                                        <div class="col-md-6 mb-3">
+                                            <label for="validationCustom01">Datos personales</label>
+                                            <input wire:model="last_name" type="text" name="last_name" id="last_name" class="form-control" id="validationCustom01"  placeholder="Apellido y Nombre">
+                                            @error('last_name') <span class="error text-danger">{{ $message }}</span>@enderror
+                                        </div>
+
+                                        <div class="col-md-6 mb-3" >
+                                            <label for="validationCustom03">Codigo</label>
+                                            <input wire:model="code" type="text" class="form-control" id="validationCustom03"  placeholder="Codigo" >
+                                            @error('code') <span class="error text-danger">{{ $message }}</span>@enderror
+                                        </div>
+
+                                    </div>
+                                    <div class="modal-footer">
+
+                                        <button type="button" id="btn-clear-up-exit"  class="btn btn-sm btn-success" title="Limpiar" style="display:none;">Limpiar</button>
+                                        <button type="submit" id="btn-register-exit" class="btn btn-sm btn-success" title="Guardar Registro" style="display:none;">Registrar</button>
+
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
                 </div>
-    			<div wire:ignore>
-			    	<ul class="nav nav-tabs" id="myTab" role="tablist" >
-					  <li class="nav-item" role="presentation">
-					    <a class="nav-link active" id="form-entry" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Entrada</a>
-					  </li>
-					  <li class="nav-item" role="presentation">
-					    <a class="nav-link" id="form-exit" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Salida</a>
-					  </li>
-					</ul>
+    	    </div>
 
-					<div class="tab-content" id="myTabContent" >
-					  <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="form-entry" >
+            <br>
 
-					  	<div class="container pt-4">
-	          				<form wire:submit.prevent="entryAlumn()" method="POST">
-		      					<div class="form-row">
-		                        <div class="col-md-4 mb-3">
-		                          <label for="validationCustom01">Nombre</label>
-		                          <input wire:model="name" type="text" name="name" class="form-control" id="validationCustom01"  placeholder="Nombre">
-		                          @error('name') <span class="error text-danger">{{ $message }}</span>@enderror
-		                        </div>
-
-		                        <div class="col-md-4 mb-3">
-		                          <label for="validationCustom01">Apellido</label>
-		                          <input wire:model="last_name" type="text" name="last_name" class="form-control" id="validationCustom01"  placeholder="Apellido">
-		                          @error('last_name') <span class="error text-danger">{{ $message }}</span>@enderror
-		                        </div>
-
-		                        <div class="col-md-4 mb-3" >
-		                            <label for="validationCustom03">Codigo</label>
-		                            <input wire:model="code" type="text" class="form-control" id="validationCustom03"  placeholder="Codigo">
-		                            @error('code') <span class="error text-danger">{{ $message }}</span>@enderror
-		                        </div>
-		                      </div>
-		                      <div class="modal-footer" >
-		                      	 {{-- @if ($data_student != null) --}}
-		                         <button type="button" wire:click="$emit('validateData')" class="btn btn-sm btn-dark" title="Guardar Registro" {{--wire:click="modal('destroy', $student->id )"--}}>Justificar Inasistencia</button>
-		                         {{-- @endif --}}
-
-		                         <button type="submit" class="btn btn-sm btn-success" title="Guardar Registro">Registrar</button>
-		                      </div>
-		                    </form>
-	                	</div>
-
-					  </div>
-					  <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="form-exit">
-					  	<div class="container pt-4">
-	          				<form wire:submit.prevent="exitAlumn()" method="POST">
-		      					<div class="form-row">
-		                        <div class="col-md-4 mb-3">
-		                          <label for="validationCustom01">Nombre</label>
-		                          <input wire:model="name" type="text" name="name" class="form-control" id="validationCustom01"  placeholder="Nombre">
-		                          @error('name') <span class="error text-danger">{{ $message }}</span>@enderror
-		                        </div>
-
-		                        <div class="col-md-4 mb-3">
-		                          <label for="validationCustom01">Apellido</label>
-		                          <input wire:model="last_name" type="text" name="last_name" class="form-control" id="validationCustom01"  placeholder="Apellido">
-		                          @error('last_name') <span class="error text-danger">{{ $message }}</span>@enderror
-		                        </div>
-
-		                        <div class="col-md-4 mb-3" >
-		                            <label for="validationCustom03">Codigo</label>
-		                            <input wire:model="code" type="text" class="form-control" id="validationCustom03"  placeholder="Codigo" >
-		                            @error('code') <span class="error text-danger">{{ $message }}</span>@enderror
-		                        </div>
-		                      </div>
-		                      <div class="modal-footer">
-		                         <button type="submit" class="btn btn-sm btn-success" title="Guardar Registro">Registrar</button>
-		                      </div>
-		                    </form>
-	                	</div>
-					  </div>
-					</div>
-    			</div>
-    		</div>
-    	</div>
-	</div>
+            <div class="card mb-4" id="student-selection-chart" style="background-color: #e9ecef; display:none;">
+                <div class="card-body">
+                    <div class="table-responsive py-3">
+                        <table class="table" width="100%" cellspacing="0">
+                            <thead class="text-center">
+                            <tr>
+                                <th scope="col">Id</th>
+                                <th >Nombre</th>
+                                <th >Apellido</th>
+                                <th >Genero</th>
+                                <th >Selección</th>
+                            </tr>
+                            </thead>
+                                @foreach($data_student as $student)
+                                    <tbody class="text-center">
+                                        <tr>
+                                            <th>{{ $student->id }}</th>
+                                            <td>{{ $student->name }}</td>
+                                            <td>{{ $student->last_name }}</td>
+                                            <td>{{ $student->gender }}</td>
+                                            <td class="text-center">
+                                                <a title="Seleccionar estudiante" wire:click="selectStudent( {{ $student->id }} )" >
+                                                    <button class="btn pt-0" style=""><i class="far fa-hand-pointer" style="font-size: 24px; color: #28a745;"></i></button>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                @endforeach
+                        </table>
+                    </div>
+                </div>
+            </div>
+	    </div>
     </main>
 </div>
 
@@ -114,9 +173,23 @@
 
         });
 
+    var a3 = document.getElementById("btn-clear-up");
+
+        a3.addEventListener("click", function()
+        {
+            Livewire.emit('clearProperty');
+
+        });
+
+    var a4 = document.getElementById("btn-clear-up-exit");
+
+        a4.addEventListener("click", function()
+        {
+            Livewire.emit('clearProperty');
+
+        });
+
 document.addEventListener('livewire:load', () => {
-   
-    // Livewire.hook('message.processed', (message, component) => {
 
       @this.on('confirm_register_entry', () => {
         successAlertRegisterEntry();
@@ -142,7 +215,58 @@ document.addEventListener('livewire:load', () => {
         errorsAlertStudentInfoNotRegister();
       });
 
-    // })
+      @this.on('error_validation_info_no_select_payment', () => {
+        errorsAlertStudentInfoNotSelectPayment();
+      });
+
+      @this.on('hide_table', () => {
+
+        $("#student-selection-chart").hide();
+
+      });
+
+      @this.on('show_table', () => {
+
+        $("#student-selection-chart").show();
+
+      });
+
+      @this.on('show_btn_forms', () => {
+
+        $("#btn-register").show();
+        $("#btn-justify-absence").show();
+        $("#btn-clear-up").show();
+        $("#btn-register-exit").show();
+        $("#btn-clear-up-exit").show();
+
+      });
+
+      @this.on('hide_btn_forms', () => {
+
+        $("#btn-register").hide();
+        $("#btn-justify-absence").hide();
+        $("#btn-clear-up").hide();
+        $("#btn-register-exit").hide();
+        $("#btn-clear-up-exit").hide();
+
+      });
+
+      @this.on('show_payment', () => {
+
+        document.getElementById('inlineRadio1').disabled = false;
+        document.getElementById('inlineRadio2').disabled = false;
+
+      });
+
+      @this.on('hide_payment', () => {
+
+        document.getElementById('inlineRadio1').disabled = true;
+        document.getElementById('inlineRadio1').checked = false;
+
+        document.getElementById('inlineRadio2').disabled = true;
+        document.getElementById('inlineRadio2').checked = false;
+
+      });
 });
 
 </script>

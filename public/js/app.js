@@ -5369,6 +5369,16 @@ window.errorsAlertSelectSport = function () {
   });
 };
 
+window.errorsAlertStudentInfoNotSelectPayment = function () {
+  sweetalert2__WEBPACK_IMPORTED_MODULE_1___default().fire({
+    position: 'top-end',
+    icon: 'info',
+    title: 'Seleccione si esta al dia con sus pagos.',
+    showConfirmButton: false,
+    timer: 2350
+  });
+};
+
 /***/ }),
 
 /***/ "./resources/js/bootstrap.js":
