@@ -3,17 +3,13 @@
         <div class="container-fluid">
             <br>
             <div class="card mb-4">
-                {{-- <div class="card-header">
-                    <i class="fas fa-table mr-1"></i>
-                    DataTable Example
-                </div> --}}
                 <div class="card-body">
 
                 <div class="row align-items-end">
                     <div class="col-lg-8 col-md-8">
                         <h4>Listado de Asistencias</h4>
                     </div>
-                    
+
                 </div>
                 <div class="btn-toolbar justify-content-between float-right py-4" role="toolbar" aria-label="Toolbar with button groups">
                   <div class="input-group">
@@ -44,24 +40,23 @@
                               <tbody class="text-center">
                                 <tr>
                                   <th>{{ $attendance->id }}</th>
-                                  <td>{{ $attendance->name }}</td>
-                                  <td>{{ $attendance->last_name }}</td>
-                                  <td>{{ $attendance->gender }}</td>
-                                  <td>{{ $attendance->code }}</td>
-                                  @if($attendance->attendance->status == true)
+                                  <td>{{ $attendance->student->name }}</td>
+                                  <td>{{ $attendance->student->last_name }}</td>
+                                  <td>{{ $attendance->student->gender }}</td>
+                                  <td>{{ $attendance->student->code }}</td>
+                                  @if($attendance->status == true)
                                       <td style="background-color: #28a745; color: white;"><label><em><b>Entrada.</b></em></label></td>
                                   @else
                                       <td style="background-color: #dc3545; color: white;"><label><em><b>Salida</b></em></label></td>
                                   @endif
-                                  <td>{{ $attendance->attendance->hour }}</td>
-                                  <td>{{ $attendance->attendance->created_at->format('Y-m-d') }}</td>
+                                  <td>{{ $attendance->hour }}</td>
+                                  <td>{{ $attendance->created_at->format('Y-m-d') }}</td>
 
-                                  @foreach ($attendance->sports as $sport)
+                                  @foreach ($attendance->student->sports as $sport)
                                       @if($sport->id == $id_sport)
                                           <td>{{ $sport->name }}</td>
                                       @endif
                                   @endforeach
-                                  
                                 </tr>
                               </tbody>
                               @endforeach
