@@ -23,7 +23,7 @@
                       <div class="col-md-12">
                         <label for="validationCustom01"><b>Descripción</b></label>
                         <p class="text-justify">
-                          {{ $data_student->absence_justification->description }}
+                          {{ strip_tags( $data_student->absence_justification->description ) }}
                         </p>
                       </div>
                     </div>
