@@ -44,7 +44,9 @@ class Attendance extends Component
         if($this->band_table != true)
         {
             $this->data_student = Student::Orwhere( 'code', $this->code )
-                                         ->Orwhere( 'last_name', $this->last_name )
+                                         ->when($this->last_name != null, function ( Builder $query ) {
+                                            $query->Orwhere('last_name', 'LIKE', '%'.$this->last_name.'%');
+                                         })
                                          ->get();
 
             if( count($this->data_student ) > 0 )
