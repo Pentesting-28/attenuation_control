@@ -7,37 +7,27 @@
 
   <title>Control de asistencias</title>
 
-
-  <!-- Google Fonts -->
-  {{-- <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,700,700i&display=swap" rel="stylesheet"> --}}
-
   <!-- Fonts -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
-  {{-- <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
-  <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}"> --}}
 
-  <style type="text/css">
-    #logo{
-      width: 100%;
-      height: 70px;
-    }
+  <link rel="stylesheet" href="{{ asset('css/styles_landing.css') }}">
 
-    #logo2{
-      width: 50%;
-      height: 150px;
-    }
-  </style>
   @livewireStyles
 
   <script src="{{ mix('js/app.js') }}" defer></script>
 </head>
 
-<body style="background-color: #343a4075;">
-    <!-- As a heading -->
-    <nav class="navbar navbar-dark bg-dark">
+<body>
+    <nav class="navbar navbar_contact">
+        <p>
+            <i class="fas fa-phone-alt mx-1"></i>
+            Contactos 07 - 4095-644 / 2853-184 / 4102-382 / 099-597-4568
+        </p>
+    </nav>
+    <nav class="navbar navbar_heading">
       <a>
         <img src="{{ asset('images/centrohes.png') }}" class="img-fluid" id="logo"  alt="Hermanos Enderica Salgado">
       </a>
@@ -45,9 +35,9 @@
           <div class="hidden fixed top-0 right-0 px-6 sm:block ">
               <span class="navbar-brand mb-0">
                 @auth
-                    <a href="{{ url('/dashboard') }}" class="nav-link text text-white" >Dashboard</a>
+                    <a href="{{ url('/dashboard') }}" class="nav-link">Dashboard</a>
                 @else
-                    <a href="{{ route('login') }}" class="nav-link text text-white" >Iniciar sesión</a>
+                    <a href="{{ route('login') }}" class="grow_box grow_box_green btn nav-link">Iniciar sesión</a>
                 @endauth
               </span>
           </div>
@@ -55,7 +45,6 @@
     </nav>
 
     @yield('content')
-
 
     @stack('modals')
 

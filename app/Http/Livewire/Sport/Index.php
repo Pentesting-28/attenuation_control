@@ -10,16 +10,16 @@ use Illuminate\Database\Eloquent\Builder;
 
 class Index extends Component
 {
-	  use WithPagination;
+	use WithPagination;
 
     protected $paginationTheme = 'bootstrap';
 
   	public
-    		$name,
-    		$sport_id,
-    		$filter = [
-    	      'sport_name' => null,
-    	    ];
+        $name,
+        $sport_id,
+        $filter = [
+            'sport_name' => null,
+        ];
 
 
 
@@ -28,8 +28,8 @@ class Index extends Component
       	$sports = Sport::when($this->filter["sport_name"] != null, function ( Builder $query ) {
                             $query->where('name', 'LIKE', '%'.$this->filter["sport_name"].'%');
                          })
-              				   ->orderBy('created_at', 'ASC')
-              				   ->paginate(10);
+                        ->orderBy('created_at', 'ASC')
+                        ->paginate(10);
     	// dd($sports);
         return view('livewire.sport.index', compact('sports'));
     }
@@ -45,7 +45,7 @@ class Index extends Component
           'name',
           'sport_id',
         ]);
-        
+
         $this->resetValidation();
     }
 
@@ -123,7 +123,7 @@ class Index extends Component
 
 
 
-    
+
 
     public function destroy(Sport $sport)
     {

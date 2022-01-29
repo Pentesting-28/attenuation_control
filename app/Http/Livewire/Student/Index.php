@@ -16,16 +16,16 @@ use DB;
 class Index extends Component
 {
   	use WithPagination;
-    
+
     use UtilTrait;
 
     protected $paginationTheme = 'bootstrap';
 
   	public
-    		$name,
-    		$last_name,
-    		$gender,
-    		$code,
+        $name,
+        $last_name,
+        $gender,
+        $code,
         $schedule,
         $status,
         $sport  = [],

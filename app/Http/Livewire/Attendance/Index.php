@@ -27,7 +27,7 @@ class Index extends Component
 
 
 
-	       
+
     public function render()
     {
     	$attendances = Attendance::with('student')

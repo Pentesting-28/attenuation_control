@@ -1,118 +1,81 @@
 <div>
-
-    <style>
-        .payment-form-check {
-            width: 300px;
-            height: 100px;
-            border: 3px solid #555;
-            text-align: center;
-            background: white;
-        }
-    </style>
-
     <main class="py-4">
-	<div class="container">
-		@include('livewire.student.justification_for_absence')
-    		<div class="card mb-1 pt-1" style="background-color: #e9ecef;">
+        <div class="container">
+            @include('livewire.student.justification_for_absence')
+            @include('livewire.student.form_payment')
+    		<div class="card card_attendance mb-1 pt-1">
 				<div class="text-center">
 					<img class="btAltLogo" src="{{ asset('images/centrohes2.png') }}" id="logo2" alt="Hermanos Enderica Salgado">
 				</div>
                 <div class="card-body" >
-                    <div class="col-md-12 " align="center">
+                    <div class="col-md-12 text-center">
 
                         @if ($data_student_select != null)
                             <h4 >{{ $data_student_select->last_name }} {{ $data_student_select->name }}</h4>
                         @endif
 
                     </div>
-
                     <div wire:ignore>
                         <ul class="nav nav-tabs" id="myTab" role="tablist" >
-                        <li class="nav-item" role="presentation">
-                            <a class="nav-link active" id="form-entry" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Entrada</a>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <a class="nav-link" id="form-exit" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Salida</a>
-                        </li>
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link active" id="form-entry" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Entrada</a>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link" id="form-exit" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Salida</a>
+                            </li>
                         </ul>
-
                         <div class="tab-content" id="myTabContent" >
-                        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="form-entry" >
-
-                            <div class="container pt-4">
-                                <form wire:submit.prevent="entryAlumn()" method="POST">
-                                    <div class="form-row">
-                                        <div class="col-md-4 mb-3">
-                                            <label for="validationCustom01">Datos personales</label>
-                                            <input wire:model="last_name" type="text" name="last_name" id="last_name" class="form-control" id="validationCustom01"  placeholder="Apellido y Nombre">
-                                            @error('last_name') <span class="error text-danger">{{ $message }}</span>@enderror
-                                        </div>
-
-                                        <div class="col-md-4 mb-5" >
-                                            <label for="validationCustom03">Codigo</label>
-                                            <input wire:model="code" type="text" class="form-control mx-2" id="validationCustom03"  placeholder="Codigo">
-                                            @error('code') <span class="error text-danger">{{ $message }}</span>@enderror
-                                        </div>
-
-                                        <div class="payment-form-check mx-4" id="payment-form-check">
-                                            <div class="py-1">
-                                                <label for="validationCustom04">Pago</label>
+                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="form-entry" >
+                                <div class="container pt-4">
+                                    <form wire:submit.prevent="entryAlumn()" method="POST">
+                                        <div class="form-row">
+                                            <div class="col-md-6 mb-3">
+                                                <label for="validationCustom01">Datos personales</label>
+                                                <input wire:model="last_name" type="text" name="last_name" id="last_name" class="form-control" id="validationCustom01"  placeholder="Apellido y Nombre">
+                                                @error('last_name') <span class="error text-danger">{{ $message }}</span>@enderror
                                             </div>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-check form-check-inline">
-                                                        <input class="form-check-input" wire:model="select_status_payment" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="1" disabled>
-                                                        <label class="form-check-label" for="inlineRadio1">SI</label>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-check form-check-inline">
-                                                        <input class="form-check-input" wire:model="select_status_payment" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="0" disabled>
-                                                        <label class="form-check-label" for="inlineRadio2">NO</label>
-                                                    </div>
-                                                </div>
+
+                                            <div class="col-md-6" >
+                                                <label for="validationCustom03">Codigo</label>
+                                                <input wire:model="code" type="text" class="form-control" id="validationCustom03"  placeholder="Codigo">
+                                                @error('code') <span class="error text-danger">{{ $message }}</span>@enderror
                                             </div>
                                         </div>
-
-                                    </div>
-                                    <div class="modal-footer" >
-
-                                        <button type="button" id="btn-clear-up"  class="btn btn-sm btn-success" title="Limpiar" style="display:none;">Limpiar</button>
-                                        <button type="button" id="btn-justify-absence" wire:click="$emit('validateData')" class="btn btn-sm btn-dark" title="Justificar Inasistencia" style="display:none;">Justificar Inasistencia</button>
-                                        <button type="submit" id="btn-register" class="btn btn-sm btn-success" title="Guardar Registro" style="display:none;">Registrar</button>
-
-                                    </div>
-                                </form>
-                            </div>
-
-                        </div>
-                        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="form-exit">
-                            <div class="container pt-4">
-                                <form wire:submit.prevent="exitAlumn()" method="POST">
-                                    <div class="form-row">
-
-                                        <div class="col-md-6 mb-3">
-                                            <label for="validationCustom01">Datos personales</label>
-                                            <input wire:model="last_name" type="text" name="last_name" id="last_name" class="form-control" id="validationCustom01"  placeholder="Apellido y Nombre">
-                                            @error('last_name') <span class="error text-danger">{{ $message }}</span>@enderror
+                                        <div class="modal-footer">
+                                            <button type="button" id="btn-clear-up" class="grow_box grow_box_green btn-sm" title="Limpiar" style="display:none;">Limpiar</button>
+                                            <button type="button" id="btn-justify-absence" wire:click="$emit('validateData')" class="grow_box grow_box_dark btn-sm" title="Justificar Inasistencia"  style="display:none;">Justificar Inasistencia</button>
+                                            <button type="submit" id="btn-register" class="grow_box grow_box_green btn-sm" title="Guardar Registro" style="display:none;">Registrar</button>
                                         </div>
-
-                                        <div class="col-md-6 mb-3" >
-                                            <label for="validationCustom03">Codigo</label>
-                                            <input wire:model="code" type="text" class="form-control" id="validationCustom03"  placeholder="Codigo" >
-                                            @error('code') <span class="error text-danger">{{ $message }}</span>@enderror
-                                        </div>
-
-                                    </div>
-                                    <div class="modal-footer">
-
-                                        <button type="button" id="btn-clear-up-exit"  class="btn btn-sm btn-success" title="Limpiar" style="display:none;">Limpiar</button>
-                                        <button type="submit" id="btn-register-exit" class="btn btn-sm btn-success" title="Guardar Registro" style="display:none;">Registrar</button>
-
-                                    </div>
-                                </form>
+                                    </form>
+                                </div>
                             </div>
-                        </div>
+                            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="form-exit">
+                                <div class="container pt-4">
+                                    <form wire:submit.prevent="exitAlumn()" method="POST">
+                                        <div class="form-row">
+
+                                            <div class="col-md-6 mb-3">
+                                                <label for="validationCustom01">Datos personales</label>
+                                                <input wire:model="last_name" type="text" name="last_name" id="last_name" class="form-control" id="validationCustom01"  placeholder="Apellido y Nombre">
+                                                @error('last_name') <span class="error text-danger">{{ $message }}</span>@enderror
+                                            </div>
+
+                                            <div class="col-md-6 mb-3" >
+                                                <label for="validationCustom03">Codigo</label>
+                                                <input wire:model="code" type="text" class="form-control" id="validationCustom03"  placeholder="Codigo" >
+                                                @error('code') <span class="error text-danger">{{ $message }}</span>@enderror
+                                            </div>
+
+                                        </div>
+                                        <div class="modal-footer">
+
+                                            <button type="button" id="btn-clear-up-exit"  class="grow_box grow_box_dark btn-sm" title="Limpiar" style="display:none;">Limpiar</button>
+                                            <button type="submit" id="btn-register-exit" class="grow_box grow_box_green btn-sm" title="Guardar Registro" style="display:none;">Registrar</button>
+
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -142,7 +105,7 @@
                                             <td>{{ $student->gender }}</td>
                                             <td class="text-center">
                                                 <a title="Seleccionar estudiante" wire:click="selectStudent( {{ $student->id }} )" >
-                                                    <button class="btn pt-0" style=""><i class="far fa-hand-pointer" style="font-size: 24px; color: #28a745;"></i></button>
+                                                    <button class="grow_box grow_box_green btn pt-1" style=""><i class="far fa-hand-pointer" style="font-size: 24px;"></i></button>
                                                 </a>
                                             </td>
                                         </tr>
@@ -189,84 +152,84 @@
 
         });
 
-document.addEventListener('livewire:load', () => {
+    document.addEventListener('livewire:load', () => {
 
-      @this.on('confirm_register_entry', () => {
-        successAlertRegisterEntry();
-      });
+        @this.on('confirm_register_entry', () => {
+            successAlertRegisterEntry();
+        });
 
-      @this.on('error_validation', () => {
-        errorsAlertStudent();
-      });
+        @this.on('error_validation', () => {
+            errorsAlertStudent();
+        });
 
-      @this.on('error_validation_info', () => {
-        errorsAlertStudentInfo();
-      });
+        @this.on('error_validation_info', () => {
+            errorsAlertStudentInfo();
+        });
 
-      @this.on('error_validation_info_entry', () => {
-        errorsAlertStudentInfoEntry();
-      });
+        @this.on('error_validation_info_entry', () => {
+            errorsAlertStudentInfoEntry();
+        });
 
-      @this.on('error_validation_info_exit', () => {
-        errorsAlertStudentInfoExit();
-      });
+        @this.on('error_validation_info_exit', () => {
+            errorsAlertStudentInfoExit();
+        });
 
-      @this.on('error_validation_info_no_register', () => {
-        errorsAlertStudentInfoNotRegister();
-      });
+        @this.on('error_validation_info_no_register', () => {
+            errorsAlertStudentInfoNotRegister();
+        });
 
-      @this.on('error_validation_info_no_select_payment', () => {
-        errorsAlertStudentInfoNotSelectPayment();
-      });
+        @this.on('error_validation_info_no_select_payment', () => {
+            errorsAlertStudentInfoNotSelectPayment();
+        });
 
-      @this.on('hide_table', () => {
+        @this.on('hide_table', () => {
 
-        $("#student-selection-chart").hide();
+            $("#student-selection-chart").hide();
 
-      });
+        });
 
-      @this.on('show_table', () => {
+        @this.on('show_table', () => {
 
-        $("#student-selection-chart").show();
+            $("#student-selection-chart").show();
 
-      });
+        });
 
-      @this.on('show_btn_forms', () => {
+        @this.on('show_btn_forms', () => {
 
-        $("#btn-register").show();
-        $("#btn-justify-absence").show();
-        $("#btn-clear-up").show();
-        $("#btn-register-exit").show();
-        $("#btn-clear-up-exit").show();
+            $("#btn-register").show();
+            $("#btn-justify-absence").show();
+            $("#btn-clear-up").show();
+            $("#btn-register-exit").show();
+            $("#btn-clear-up-exit").show();
 
-      });
+        });
 
-      @this.on('hide_btn_forms', () => {
+        @this.on('hide_btn_forms', () => {
 
-        $("#btn-register").hide();
-        $("#btn-justify-absence").hide();
-        $("#btn-clear-up").hide();
-        $("#btn-register-exit").hide();
-        $("#btn-clear-up-exit").hide();
+            $("#btn-register").hide();
+            $("#btn-justify-absence").hide();
+            $("#btn-clear-up").hide();
+            $("#btn-register-exit").hide();
+            $("#btn-clear-up-exit").hide();
 
-      });
+        });
 
-      @this.on('show_payment', () => {
+        //   @this.on('show_payment', () => {
 
-        document.getElementById('inlineRadio1').disabled = false;
-        document.getElementById('inlineRadio2').disabled = false;
+        //     document.getElementById('inlineRadio1').disabled = false;
+        //     document.getElementById('inlineRadio2').disabled = false;
 
-      });
+        //   });
 
-      @this.on('hide_payment', () => {
+        //   @this.on('hide_payment', () => {
 
-        document.getElementById('inlineRadio1').disabled = true;
-        document.getElementById('inlineRadio1').checked = false;
+        //     document.getElementById('inlineRadio1').disabled = true;
+        //     document.getElementById('inlineRadio1').checked  = false;
 
-        document.getElementById('inlineRadio2').disabled = true;
-        document.getElementById('inlineRadio2').checked = false;
+        //     document.getElementById('inlineRadio2').disabled = true;
+        //     document.getElementById('inlineRadio2').checked  = false;
 
-      });
-});
+        //   });
+    });
 
 </script>

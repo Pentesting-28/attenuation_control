@@ -32,8 +32,8 @@ class Attendance extends Component
 
 
     protected $listeners = [
-        'clearProperty'     => 'clearProperty',
-        'validateData'      => 'absenceJustificationValidateData',
+        'clearProperty' => 'clearProperty',
+        'validateData'  => 'absenceJustificationValidateData',
     ];
 
 
@@ -76,7 +76,8 @@ class Attendance extends Component
         if( $student->status == 0 )
         {
             $this->band = true;
-            $this->eventHandler('show_payment');
+            $this->eventHandler('modalPaymentShow');
+
         }
 
     }
@@ -107,7 +108,6 @@ class Attendance extends Component
             'select_status_payment',
         ]);
 
-        $this->eventHandler('hide_payment');
         $this->eventHandler('hide_btn_forms');
         $this->eventHandler( 'hide_table' );
     }
@@ -119,21 +119,13 @@ class Attendance extends Component
 
     public function entryAlumn()
     {
-        // dd($this->select_status_payment);
-
         $Object = new DateTime();
         $Object->setTimezone( new DateTimeZone('America/Guayaquil') );
         $hour = $Object->format("h:i:s a");
         // $DateAndTime = $Object->format("d-m-Y h:i:s a");
 
-        // $student = Student::Orwhere('last_name', $this->name)
-        //                   ->Orwhere('name', $this->name)
-        //                   ->Orwhere('code', $this->code)
-        //                   ->get();
-
         if( $this->last_name != null || $this->code != null )//si no inserta nada
         {
-
             if( isset( $this->student_select ) != null )//si exite el alumno
             {
                 if( $this->band == true )//si no esta al dia con el pagos.
@@ -152,8 +144,6 @@ class Attendance extends Component
 
                         $this->eventHandler( 'hide_btn_forms' );
 
-                        $this->eventHandler( 'hide_payment' );
-
                         $this->clearProperty();
 
                     }else{
@@ -171,50 +161,8 @@ class Attendance extends Component
 
                     $this->eventHandler( 'hide_btn_forms' );
 
-                    $this->eventHandler( 'hide_payment' );
-
                     $this->clearProperty();
                 }
-
-
-
-                /**
-                 * Lo que esta comentado era la validacion para un registro por dia.
-                 * Por eso eraque no te dejaba registrar una nueva entrada porque validamos
-                 * Por Status y por fechas.
-                 **/
-
-
-                // $absence_justification = AbsenceJustification::where('student_id', $student[0]->id)
-                //                                   ->where('status', '!=' , false)
-                //                                   ->latest()
-                //                                   ->get();
-
-                // if(count($absence_justification->toArray()) > 0)
-                // {
-                //     dd('pinto bien');
-                    // $attendance = AttendanceModel::where('student_id', $student[0]->id)
-                    //                              ->latest()
-                    //                              ->get();
-
-                    // if(count($attendance->toArray()) > 0)//si exite un primer registro
-                    // {
-                        // if( Carbon::now()->format('Y-m-d') <= $student[0]->created_at->format('Y-m-d') && $attendance[0]->status == false )
-                        // {
-                        //     $this->band = true;
-                        // }
-                        // else{
-                        //     $this->emit('error_validation_info_entry');
-                        // }
-                    // }
-                    // else{
-                    //     $this->band = true;
-                    // }
-                // }
-                // else{
-                //     // dd('pinto mal');
-                //     $this->emit('modalShow');
-                // }
             }
             else{
                 $this->eventHandler( 'error_validation' );
@@ -223,19 +171,6 @@ class Attendance extends Component
         else{
             $this->emit( 'error_validation_info' );
         }
-
-        // if( $this->band == true )
-        // {
-        //     AttendanceModel::create([
-        //         'hour'       => $hour,
-        //         'status'     => true,
-        //         'student_id' => $student[0]->id,
-        //     ]);
-
-        //     $this->emit('confirm_register_entry');
-
-        //     $this->clearProperty();
-        // }
     }
 
 
@@ -251,10 +186,6 @@ class Attendance extends Component
         $hour = $Object->format( "h:i:s a" );
         // $DateAndTime = $Object->format("d-m-Y h:i:s a");
 
-        // $student = Student::Orwhere( 'last_name', $this->last_name )
-        //                   ->Orwhere( 'code', $this->code )
-        //                   ->get();
-
         if($this->last_name != null || $this->code != null)
         {
             if( isset( $this->student_select ) != null )//si exite el alumno
@@ -263,21 +194,15 @@ class Attendance extends Component
 
                 if(count($attendance->toArray()) > 0 )
                 {
-                    // if( Carbon::now()->format('Y-m-d') <=  $student[0]->created_at->format('Y-m-d') && $attendance[0]->status == true)
-                    // {
-                        AttendanceModel::create([
-                            'hour'       => $hour,
-                            'status'     => false,
-                            'student_id' => $this->data_student_select->id,
-                        ]);
+                    AttendanceModel::create([
+                        'hour'       => $hour,
+                        'status'     => false,
+                        'student_id' => $this->data_student_select->id,
+                    ]);
 
-                        $this->eventHandler('confirm_register_entry');
+                    $this->eventHandler('confirm_register_entry');
 
-                        $this->clearProperty();
-                    // }
-                    // else{
-                    //     $this->emit('error_validation_info_exit');
-                    // }
+                    $this->clearProperty();
                 }
                 else{
                     $this->eventHandler('error_validation_info_no_register');
@@ -321,6 +246,10 @@ class Attendance extends Component
 
     public function absenceJustificationStore()
     {
+        $validatedData = $this->validate([
+            'description' => 'required|string|min:3|max:255',
+        ]);
+
         AbsenceJustification::create([
             'status'      => true,
             'description' => $this->description,
@@ -334,5 +263,33 @@ class Attendance extends Component
         $this->eventHandler('hide_btn_forms');
 
         $this->eventHandler('confirm_register_entry');
+    }
+
+
+
+
+
+
+    public function statusPaymentUpdate()
+    {
+        if(isset($this->select_status_payment) != null)
+        {
+            $status_payment = Student::where('id', $this->student_select)->first();
+
+            if(isset($status_payment) != null)
+            {
+                $status_payment->update([
+                    'status' => (bool)$this->select_status_payment
+                ]);
+
+                $this->eventHandler( 'modalPaymentHide' );
+            }
+            else{
+                $this->eventHandler('error_validation');
+            }
+        }
+        else{
+            $this->eventHandler('error_validation_info_no_select_payment');
+        }
     }
 }
