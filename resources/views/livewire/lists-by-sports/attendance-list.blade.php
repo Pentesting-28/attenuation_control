@@ -5,21 +5,36 @@
             <div class="card mb-4">
                 <div class="card-body">
 
-                <div class="row align-items-end">
-                    <div class="col-lg-8 col-md-8">
-                        <h4>Listado de Asistencias</h4>
+                    <div class="row align-items-end">
+                        <div class="col-lg-8 col-md-8">
+                            <h4>Listado de Asistencias</h4>
+                        </div>
+
                     </div>
 
-                </div>
-                <div class="btn-toolbar justify-content-between float-right py-4" role="toolbar" aria-label="Toolbar with button groups">
-                  <div class="input-group">
-                    <div class="input-group-prepend">
-                          <input title="Buscar por Nombre" wire:model="filter.student_name" type="text" class="form-control mx-1" name="student_name" id="student_name" placeholder="Nombre">
-                          <input title="Buscar por Apellido" wire:model="filter.student_last_name" type="text" class="form-control mx-1" name="student_last_name" id="student_last_name" placeholder="Apellido">
-                          <input title="Buscar por Codigo" wire:model="filter.student_code" type="text" class="form-control mx-1" name="student_code" id="student_code" placeholder="Codigo">
+                    <div class="row py-4">
+                        <div class="col-md-4">
+                            @if( count($attendances) > 0 )
+                                <a title="Generar Reporte" wire:click="attendanceListExport()">
+                                    <button class="btn  btn-success" style="color: white;"><i class="fas fa-lg fa-file-excel"></i>Generar Reporte</button>
+                                </a>
+                                <div wire:loading wire:target="attendanceListExport">
+                                    Exportando ........
+                                </div>
+                            @endif
+                        </div>
+                        <div class="col-md-8">
+                            <div class="btn-toolbar justify-content-between float-right" role="toolbar" aria-label="Toolbar with button groups">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <input title="Buscar por Nombre" wire:model="filter.student_name" type="text" class="form-control mx-1" name="student_name" id="student_name" placeholder="Nombre">
+                                        <input title="Buscar por Apellido" wire:model="filter.student_last_name" type="text" class="form-control mx-1" name="student_last_name" id="student_last_name" placeholder="Apellido">
+                                        <input title="Buscar por Codigo" wire:model="filter.student_code" type="text" class="form-control mx-1" name="student_code" id="student_code" placeholder="Codigo">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                  </div>
-                </div>
 
                     <div class="table-responsive py-3">
                         <table class="table" width="100%" cellspacing="0">
@@ -51,12 +66,12 @@
                                   @endif
                                   <td>{{ $attendance->hour }}</td>
                                   <td>{{ $attendance->created_at->format('Y-m-d') }}</td>
-
-                                  @foreach ($attendance->student->sports as $sport)
+                                  <td>{{ $name_sport }}</td>
+                                  {{-- @foreach ($attendance->student->sports as $sport)
                                       @if($sport->id == $id_sport)
-                                          <td>{{ $sport->name }}</td>
+
                                       @endif
-                                  @endforeach
+                                  @endforeach --}}
                                 </tr>
                               </tbody>
                               @endforeach

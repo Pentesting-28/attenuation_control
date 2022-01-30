@@ -48,17 +48,17 @@
                               <tbody class="text-center">
                                 <tr>
                                   <th>{{ $absence_justification->id }}</th>
-                                  <td>{{ $absence_justification->name }}</td>
-                                  <td>{{ $absence_justification->last_name }}</td>
-                                  <td>{{ $absence_justification->gender }}</td>
-                                  <td>{{ $absence_justification->code }}</td>
-                                  <td>{{ $absence_justification->absence_justification->created_at->format('Y-m-d') }}</td>
+                                  <td>{{ $absence_justification->student->name }}</td>
+                                  <td>{{ $absence_justification->student->last_name }}</td>
+                                  <td>{{ $absence_justification->student->gender }}</td>
+                                  <td>{{ $absence_justification->student->code }}</td>
+                                  <td>{{ $absence_justification->created_at->format('Y-m-d') }}</td>
 
                                   <td class="text-center">
 		                            <a title="Editar Deporte" data-toggle="modal" data-target="#showModal" wire:click="show({{ $absence_justification->id }})">
                                         <button class="btn pt-0" style="background: white;"><i class="fas fa-eye" style="font-size: 20px;"></i></button>
                                     </a>
-                                  </td> 
+                                  </td>
 
                                 </tr>
                               </tbody>

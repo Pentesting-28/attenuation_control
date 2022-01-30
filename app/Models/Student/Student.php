@@ -26,9 +26,9 @@ class Student extends Model
     public function sports(){
         return $this->belongsToMany('App\Models\Student\Sport')->withTimestamps();
     }
-    
+
     public function absence_justification(){
-        return $this->hasOne('App\Models\Student\AbsenceJustification');
+        return $this->hasMany('App\Models\Student\AbsenceJustification');
     }
 
     public function attendance(){

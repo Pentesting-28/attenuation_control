@@ -140,6 +140,17 @@
 
                     <td style="background-color: {{ tdColorTable( $data["show_dates_and_days"]["month"][$k], $k ) }}; text-align: center;">
 
+                        @if( count($data["students"][$i]->absence_justification) > 0)
+
+                            @foreach($data["students"][$i]->absence_justification as $students_absence_justification)
+
+                                {{------------- VALIDAMOS SI LAS FECHAS SON IGUALES  -----------------}}
+                                {{ absencejustificationValidate( $students_absence_justification->created_at->format('Y-m-d'), $data["days_of_the_month_format"][$k] ) }}
+
+                            @endforeach
+
+                        @endif
+
                         @for ( $h=0; $h < count( $array_attendance_total ); $h++ )
 
                             {{-- VALIDACION DE ASISTENCIAS --}}
@@ -155,9 +166,19 @@
                 {{-------------  SI EL ESTUDIANTE NO TIENE REGISTRO DE ASISTENCIAS CONFIGURAMOS  -----------------}}
                 @for ( $k = 0; $k < count( $data["show_dates_and_days"]["week"] ); $k++ )
 
-                {{-------------  COLOREAMOS SEGUN LOS DIAS DE LA SEMANA Y DEJAMOS EN VACIOS  -----------------}}
                     <td style="background-color: {{ tdColorTable( $data["show_dates_and_days"]["month"][$k], $k ) }}; text-align: center;">
-                        {{ '' }}
+
+                        {{------------- VALIDAMOS SI EL SIENES INASISTENCIAS JUSTIFICADAS  -----------------}}
+                        @if( count($data["students"][$i]->absence_justification) > 0)
+
+                            @foreach($data["students"][$i]->absence_justification as $students_absence_justification)
+
+                            {{------------- VALIDAMOS SI LAS FECHAS SON IGUALES  -----------------}}
+                            {{ absencejustificationValidate( $students_absence_justification->created_at->format('Y-m-d'), $data["days_of_the_month_format"][$k] ) }}
+
+                            @endforeach
+
+                        @endif
                     </td>
 
                 @endfor
@@ -191,72 +212,78 @@
 
 @php
 
-/*-- FUNCION PARA COLOREAR LOS CAMPOS DE LOS DIAS DE LA SEMANA --*/
-  function tdColorTable( $data, $indice )
-  {
-    switch (true)
+    /*-- FUNCION PARA COLOREAR LOS CAMPOS DE LOS DIAS DE LA SEMANA --*/
+    function tdColorTable( $data, $indice )
     {
-      case $data == '01':
-        $color = "#a8cf8d";
-      break;
-      case $data >= '02' && $data <= '08':
-        $color = "#bdd6ee";
-      break;
-      case $data >= '09' && $data <= '15':
-        $color = "#ffe596";
-      break;
-      case $data >= '16' && $data <= '22':
-        $color = "#fbe3d5";
-      break;
-      case $data >= '23':
-        $color = "#f2b084";
-      break;
+        switch (true)
+        {
+            case $data == '01':
+            $color = "#a8cf8d";
+            break;
+            case $data >= '02' && $data <= '08':
+            $color = "#bdd6ee";
+            break;
+            case $data >= '09' && $data <= '15':
+            $color = "#ffe596";
+            break;
+            case $data >= '16' && $data <= '22':
+            $color = "#fbe3d5";
+            break;
+            case $data >= '23':
+            $color = "#f2b084";
+            break;
+        }
+
+        return $color;
     }
 
-    return $color;
-  }
 
-
-  /*-- FUNCION PARA COLOREAR LAS FILAS DE LA TABLA --*/
-  function colorParImpar( $indice )
-  {
-    if( ( $indice+1 ) %2==0 )
+    /*-- FUNCION PARA COLOREAR LAS FILAS DE LA TABLA --*/
+    function colorParImpar( $indice )
     {
-        $color = "#d0cecf";
-    }else{
-        $color = "";
+        if( ( $indice+1 ) %2==0 )
+        {
+            $color = "#d0cecf";
+        }else{
+            $color = "";
+        }
+
+        return $color;
     }
 
-    return $color;
-  }
 
-
-  /*-- FUNCION PARA VALIDAR EL ESTUS DE PAGO --*/
-  function paymentStatusValidation( $status )
-  {
-    if( $status == true )
+    /*-- FUNCION PARA VALIDAR EL ESTUS DE PAGO --*/
+    function paymentStatusValidation( $status )
     {
-        $resul = 'P';
-    }else{
-        $resul = '';
+        if( $status == true )
+        {
+            $resul = 'P';
+        }else{
+            $resul = '';
+        }
+
+        return $resul;
     }
 
-    return $resul;
-  }
 
-
-  /*-- FUNCION PARA LAS ASISTENCIAS HE INASISTENCIAS EN EL MES CURSANTE --*/
-  function attendanceValidate( $array_attendance_total, $days_of_the_month_format )
-  {
-    if( $array_attendance_total == $days_of_the_month_format )
+    /*-- FUNCION PARA LAS ASISTENCIAS HE INASISTENCIAS EN EL MES CURSANTE --*/
+    function attendanceValidate( $array_attendance_total, $days_of_the_month_format )
     {
-        $attendance = 'X';
-    }else{
-        $attendance = '';
+        if( $array_attendance_total == $days_of_the_month_format )
+        {
+            return $attendance = 'X';
+        }
     }
 
-    return $attendance;
-  }
+
+    /*-- FUNCION PARA VALIDAR INASISTENCIAS JUSTIFICADAS EN EL MES CURSANTE --*/
+    function absencejustificationValidate( $date_absence_justification, $days_of_the_month_format )
+    {
+        if( $date_absence_justification == $days_of_the_month_format )
+        {
+            return $attendance = 'J';
+        }
+    }
 
 @endphp
 

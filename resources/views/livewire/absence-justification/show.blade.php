@@ -4,29 +4,21 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Inasistencias | Justificación.</h5>
-                {{-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                     <span aria-hidden="true close-btn">×</span>
-                </button> --}}
             </div>
-           <div class="modal-body">
+            <div class="modal-body">
                 <div class="container">
                     @if ($data_student != null)
-          					<div class="col-md-12 " align="center">
-
-
-                        <h4 >{{ $data_student->name }} {{ $data_student->last_name }}</h4>
-
-
-                    </div>
-
-                    <div>
-                      <div class="col-md-12">
-                        <label for="validationCustom01"><b>Descripción</b></label>
-                        <p class="text-justify">
-                          {{ strip_tags( $data_student->absence_justification->description ) }}
-                        </p>
-                      </div>
-                    </div>
+          				<div class="col-md-12 " align="center">
+                            <h4 >{{ $data_student->student->name }} {{ $data_student->student->last_name }}</h4>
+                        </div>
+                        <div>
+                            <div class="col-md-12">
+                                <label for="validationCustom01"><b>Descripción</b></label>
+                                <p class="text-justify">
+                                    {{ strip_tags( $data_student->description ) }}
+                                </p>
+                            </div>
+                        </div>
                     @endif
                     <div class="modal-footer"></div>
                     <div class="col-md-12 mb-3 text-center">

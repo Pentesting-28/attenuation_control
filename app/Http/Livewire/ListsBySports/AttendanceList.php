@@ -11,6 +11,8 @@ use App\Models\Student\{
 };
 use Livewire\WithPagination;
 use Illuminate\Database\Eloquent\Builder;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\AttendanceListExport;
 
 class AttendanceList extends Component
 {
@@ -20,6 +22,7 @@ class AttendanceList extends Component
 
 	public
         $id_sport,
+        $name_sport,
 		$filter = [
 	      'student_name'      => null,
 	      'student_last_name' => null,
@@ -84,6 +87,7 @@ class AttendanceList extends Component
             if( count( $validate_sport ) > 0 )
             {
                 $this->fill([
+                    'name_sport' => Sport::findOrFail( $sport )->name,
                     'id_sport' => $sport,
                 ]);
             }
@@ -91,5 +95,10 @@ class AttendanceList extends Component
         else{
             dd('El parametro debe ser numerico');
         }
+    }
+
+    public function attendanceListExport()
+    {
+    	return Excel::download(new AttendanceListExport( $this->id_sport ), 'Control-de-asistencias-'.$this->name_sport.'-('.now()->format('d-m-Y').').xlsx');
     }
 }
