@@ -56,25 +56,6 @@ class AttendanceList extends Component
                                       ->orderBy('created_at', 'ASC')
                                       ->paginate(10);
 
-                            // Student::with('sports','attendance')
-                            // ->whereHas('sports', function ( Builder $query ) {
-                            //   $query->where('sports.id', $this->id_sport);
-                            // })
-                            // ->when($this->filter["student_name"] != null, function ( Builder $query ) {
-                            //   $query->where('name', 'LIKE', '%'.$this->filter["student_name"].'%');
-                            // })
-                            // ->when($this->filter["student_last_name"] != null, function ( Builder $query ) {
-                            //   $query->where('last_name', 'LIKE', '%'.$this->filter["student_last_name"].'%');
-                            // })
-                            // ->when($this->filter["student_code"] != null, function ( Builder $query ) {
-                            //   $query->where('code', 'LIKE', '%'.$this->filter["student_code"].'%');
-                            // })
-                            // ->has('attendance')
-                            // ->has('sports')
-                            // ->orderBy('created_at', 'ASC')
-                            // ->paginate(10);
-                            // dd($attendances);
-
         return view('livewire.lists-by-sports.attendance-list', compact('attendances'));
     }
 

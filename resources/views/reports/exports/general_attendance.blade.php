@@ -198,9 +198,10 @@
             <td style="background-color: {{ colorParImpar($i) }}; text-align: center;">
 
                 {{-- VALIDAMOS SI EXITEN INASISTENCIAS JUSTIFICADAS --}}
-                <center>
+                {{-- <center>
                 {{ strip_tags( ( !empty( $data["students"][$i]->absence_justification->description ) ? $data["students"][$i]->absence_justification->description : 'X' ) ) }}
-                </center>
+                </center> --}}
+                {{ 'X' }}
 
             </td>
           @endif

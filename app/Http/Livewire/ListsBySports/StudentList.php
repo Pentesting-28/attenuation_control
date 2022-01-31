@@ -13,7 +13,7 @@ class StudentList extends Component
   	use WithPagination;
 
   	protected $paginationTheme = 'bootstrap';
-  	
+
   	public
   		$id_sport,
   		$filter = [
