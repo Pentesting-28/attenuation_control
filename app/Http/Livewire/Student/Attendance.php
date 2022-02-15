@@ -39,6 +39,8 @@ class Attendance extends Component
 
     public function render()
     {
+        ini_set('memory_limit', '2048M');
+        
         $this->data_student_select = Student::where( 'id', $this->student_select )
                                             ->first();
         if($this->band_table != true)
