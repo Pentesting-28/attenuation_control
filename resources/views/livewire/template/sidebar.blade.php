@@ -51,10 +51,10 @@
                     </nav>
                 </div> 
                 <div class="sb-sidenav-menu-heading">Addons</div>--}}
-                <a class="nav-link" href="charts.html">
+                <!-- <a class="nav-link" href="charts.html">
                     <div class="sb-nav-link-icon"><i class="fas fa-lg fa-user"></i></div>
                     Usuarios
-                </a>
+                </a> -->
                 
                 <a class="nav-link" href="{{ route('sport.index') }}">
                     <div class="sb-nav-link-icon"><i class="fas fa-lg fa-running"></i></div>

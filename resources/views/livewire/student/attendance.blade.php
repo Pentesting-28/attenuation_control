@@ -36,7 +36,7 @@
                                             </div>
 
                                             <div class="col-md-6" >
-                                                <label for="validationCustom03">Codigo</label>
+                                                <label for="validationCustom03">Código</label>
                                                 <input wire:model="code" type="text" class="form-control" id="validationCustom03"  placeholder="Codigo">
                                                 @error('code') <span class="error text-danger">{{ $message }}</span>@enderror
                                             </div>

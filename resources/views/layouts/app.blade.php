@@ -30,7 +30,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
 
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
         {{-- Select2 --}}
 
         <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
@@ -52,7 +52,7 @@
                     <main>
                         {{ $slot }}
                     </main>
-                    @livewire('template.footer')
+                    {{-- @livewire('template.footer') --}}
                 </div>
             </div>
         </div>
@@ -84,10 +84,8 @@
 
         <script src="{{ asset('template/js/scripts.js') }}"></script>
 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-
         <script src="{{ asset('template/assets/demo/chart-area-demo.js') }}"></script>
-        <script src="{{ asset('template/assets/demo/chart-bar-demo.j') }}s"></script>
+        <script src="{{ asset('template/assets/demo/chart-bar-demo.js') }}"></script>
 
         {{-- <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script> --}}
 
