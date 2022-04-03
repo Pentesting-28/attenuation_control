@@ -28,7 +28,7 @@
                     <div class="input-group-prepend">
                           <input title="Buscar por Nombre" wire:model="filter.student_name" type="text" class="form-control mx-1" name="student_name" id="student_name" placeholder="Nombre">
                           <input title="Buscar por Apellido" wire:model="filter.student_last_name" type="text" class="form-control mx-1" name="student_last_name" id="student_last_name" placeholder="Apellido">
-                          <input title="Buscar por Codigo" wire:model="filter.student_code" type="text" class="form-control mx-1" name="student_code" id="student_code" placeholder="Codigo">
+                          <input title="Buscar por Código" wire:model="filter.student_code" type="text" class="form-control mx-1" name="student_code" id="student_code" placeholder="Código">
                     </div>
                   </div>
                 </div>
@@ -41,8 +41,8 @@
                                   <th scope="col">Id</th>
                                   <th >Nombre</th>
                                   <th >Apellido</th>
-                                  <th >Genero</th>
-                                  <th >Codigo</th>
+                                  <th >Género</th>
+                                  <th >Código</th>
                                   <th class="text-center">Accición</th>
                                 </tr>
                               </thead>

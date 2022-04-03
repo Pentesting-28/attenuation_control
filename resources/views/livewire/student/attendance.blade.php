@@ -37,7 +37,7 @@
 
                                             <div class="col-md-6" >
                                                 <label for="validationCustom03">Código</label>
-                                                <input wire:model="code" type="text" class="form-control" id="validationCustom03"  placeholder="Codigo">
+                                                <input wire:model="code" type="text" class="form-control" id="validationCustom03"  placeholder="Código">
                                                 @error('code') <span class="error text-danger">{{ $message }}</span>@enderror
                                             </div>
                                         </div>
@@ -61,8 +61,8 @@
                                             </div>
 
                                             <div class="col-md-6 mb-3" >
-                                                <label for="validationCustom03">Codigo</label>
-                                                <input wire:model="code" type="text" class="form-control" id="validationCustom03"  placeholder="Codigo" >
+                                                <label for="validationCustom03">Código</label>
+                                                <input wire:model="code" type="text" class="form-control" id="validationCustom03"  placeholder="Código" >
                                                 @error('code') <span class="error text-danger">{{ $message }}</span>@enderror
                                             </div>
 
@@ -92,7 +92,7 @@
                                 <th scope="col">Id</th>
                                 <th >Nombre</th>
                                 <th >Apellido</th>
-                                <th >Genero</th>
+                                <th >Género</th>
                                 <th >Selección</th>
                             </tr>
                             </thead>

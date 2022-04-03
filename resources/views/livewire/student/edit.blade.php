@@ -40,8 +40,8 @@
                             @error('gender') <span class="error text-danger">{{ $message }}</span>@enderror
                         </div>
                         <div class="col-md-6 mb-3" >
-                            <label for="validationCustom03">Codigo</label>
-                            <input wire:model="code" type="text" class="form-control" id="validationCustom03"  placeholder="Codigo" disabled>
+                            <label for="validationCustom03">Código</label>
+                            <input wire:model="code" type="text" class="form-control" id="validationCustom03"  placeholder="Código" disabled>
                             @error('code') <span class="error text-danger">{{ $message }}</span>@enderror
                         </div>
                       </div>

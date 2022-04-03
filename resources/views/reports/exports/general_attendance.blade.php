@@ -14,7 +14,7 @@
        </td>
        <td colspan="24"style="background-color: white;">
 
-         <b>REGISTRO DE ASISTENCIA: {{ \Carbon\Carbon::now()->startofMonth()->format('Y-m-d') }}</b>
+         <b>REGISTRO DE ASISTENCIA: {{ $date_month != null ? \Carbon\Carbon::create($date_month)->format('Y-m-d'): \Carbon\Carbon::now()->startofMonth()->format('Y-m-d') }}</b>
 
        </td>
       </tr>

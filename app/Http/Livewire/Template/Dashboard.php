@@ -50,9 +50,9 @@ class Dashboard extends Component
                                     ->count();
 
         $count_absence = Student::whereDoesntHave('attendance', function ( Builder $query ) {
-                                        $query->whereDate("created_at", now());
-                                    })
-                                    ->count();
+                                    $query->whereDate("created_at", now());
+                                })
+                                ->count();
 
         $this->daily_assistance = [
             [
@@ -69,75 +69,32 @@ class Dashboard extends Component
             ]
         ];
 
+        /**
+         * $year Año actual example 2022
+         * 
+         * $start Primer dia del mes example 01
+         * 
+         * $i meses example 01
+         * 
+         * $fecha_inicial Creamos una fecha nueva partiendo de ( $start, $i, $year )
+         * 
+         * ucwords() Convertimos la primera letra a Mayúscula
+         * 
+         * $fecha_inicial->locale('es','UTC')->monthName Traducimos el mes al idioma de preferencia
+         **/
 
         $year  = Carbon::now()->format('Y');
+
         $start = Carbon::now()->startofMonth()->format('d');
 
-        // $month = array();
-
-        for ($i=1; $i < 13; $i++) { 
-
-            $fecha_inicial = Carbon::create($start.'-'.$i.'-'.$year);
+        for ($i=1; $i < 13; $i++)
+        { 
+            $fecha_inicial = Carbon::create( $start.'-'.$i.'-'.$year );
 
             $this->monthly_assistance[] = [
                 "name"  => ucwords($fecha_inicial->locale('es','UTC')->monthName),
                 "count" => Attendance::whereMonth('created_at', $fecha_inicial->format('m'))->count()
             ];
-
-            // array_push(//Insert
-            //     $month,// Array
-            //     ucwords($fecha_inicial->locale('es')->monthName)
-            //     //Traducimos el mes a espa;ol y convetimos la primera letra a mayusculas
-            // );
         }
-        
-        // dd(//Testing
-        //     $month,
-        //     $this->monthly_assistance,
-        //     $this->daily_assistance
-        // );
     }
 }
-
-
-// $monthly_assistance = DB::table('attendances')
-//                  ->whereMonth('created_at', '03')
-//                 //  ->whereRaw('MONTH(created_at) = ?', [03])
-//                 //  ->select(DB::raw('created_at'), DB::raw('count(*) as count'))
-//                  ->groupBy('created_at')
-//                  ->count();
-
-// $monthly_assistance = Attendance::whereMonth('created_at', '03')->count();
-
-// $fecha = Carbon::parse(now());
-// $mes = $fecha->format("F");
-
-// $date = Carbon::now()->locale('es');
-
-// $date->locale();            // fr_FR
-// "\n";
-// $date->format("F");     // il y a 1 seconde
-/*
-TABLE STUDENT Doesnthave IN ATTENDANCE DATE NOW()
-
-    'id'
-    'name'
-    'last_name'
-    'gender'
-    'code'
-    'schedule'
-    'status'
-    'created_at'
-    'updated_at'
-*/
-
-/*TABLE ATTENDANCE
-
-    'id'
-    'hour'
-    'status'
-    'student_id'
-    'created_at'
-    'updated_at'
-
-*/

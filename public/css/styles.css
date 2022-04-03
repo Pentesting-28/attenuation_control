@@ -1,0 +1,183 @@
+.preloader {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    background: 50% 50% no-repeat #ffffff;
+    /* url('/images/Loading2.gif')  */
+    opacity: .8;
+}
+
+.preloaders_img {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: 50% 50% no-repeat #ffffff;
+}
+
+
+/* ---------- grow_box_green ---------- */
+
+.grow_box_green {
+    background-color: #02a000;
+    color: #fff;
+    padding: 0.25em 1.5em;
+}
+
+.grow_box_green:focus,
+.grow_box_green:hover {
+    background-color: #02a000;
+}
+
+.grow_box_green {
+    /* font-size: 2em; */
+    background: #02a000;
+    color: #fff;
+    border: 0.10rem solid #02a000;
+    /* padding: 0.85em 0.75em; */
+    /* margin: 1rem; */
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.grow_box_green:hover {
+    color: #02a000;
+}
+
+
+/* ---------- grow_box_dark ---------- */
+
+.grow_box_dark {
+    background-color: #343a40;
+    color: #fff;
+    padding: 0.25em 1.5em;
+}
+
+.grow_box_dark:focus,
+.grow_box_dark:hover {
+    background-color: #343a40;
+}
+
+.grow_box_dark {
+    /* font-size: 2em; */
+    background: #343a40;
+    color: #fff;
+    border: 0.10rem solid #343a40;
+    /* padding: 0.85em 0.75em; */
+    /* margin: 1rem; */
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.grow_box_dark:hover {
+    color: #343a40;
+}
+
+
+/* ---------- BUTTON-ANIMATION ---------- */
+
+.grow_box::after {
+    content: "";
+    background: #ecf0f1;
+    position: absolute;
+    z-index: -1;
+    padding: 0.85em 0.75em;
+    display: block;
+}
+
+.grow_box[class^="grow"]::after {
+    transition: all 0.3s ease;
+}
+
+.grow_box[class^="grow"]:hover::after {
+    transition: all 0.3s ease-out;
+}
+
+.grow_box.grow_box::after {
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    transform: scale(0, 0);
+}
+
+.grow_box.grow_box:hover::after {
+    transform: scale(1, 1);
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+/* ---------- STYLES-INPUT-DATEPIKERS ---------- */
+
+/** Para colocar el icono sobre el input. **/
+.iconoCalendario{
+    margin-top: 0px;
+    position: relative;
+    /*top: -28px;*/
+    left: calc(100% - 35px);
+}
+.form-control[readonly] {
+    background-color: #fff !important;
+}
+
+/* ---------- STYLES-DATEPIKERS ---------- */
+
+
+/*PINTAMOS EL NAV DEL CALENDARIO*/
+.air-datepicker-nav{
+    background-color: #343a40 !important;
+    color : white;
+}
+
+/*PINTAMOS EL HOVER DE LAS ACCIONES DEL NAV DEL CALENDARIO*/
+.air-datepicker-nav--action:hover{
+    background-color: #02a000 !important;
+    color : white;
+}
+
+/*PINTAMOS EL MES ACTUAL QUE SE MARCA EN EL CALENDARIO*/
+.air-datepicker-cell.-current- {
+    color: #02a000 !important;
+}
+
+/*PINTAMOS AL SELECCIONAR EL MES*/
+.air-datepicker-cell.-selected-, .air-datepicker-cell.-selected-.-current- {
+    color: white !important;
+    background: #02a000 !important;
+}
+
+/*PINTAMOS LOS SVG DEL PAGINADO DE LOS MESES*/
+.air-datepicker-nav--action path {
+    fill: none;
+    stroke: white !important;
+    stroke-width: 2px;
+}
+
+/*PINTAMOS EL TITULO AL PASAR SOBRE EL CON EL CURSOR (HOVER)*/
+.air-datepicker-nav--title:hover{
+    background-color: #02a000 !important;
+    color : white;
+}
+
+/*PINTAMOS EL BUTTON*/
+.air-datepicker--buttons{
+    background: #343a40 !important;
+}
+
+/*PINTAMOS TEXT DEL BUTTON*/
+.air-datepicker-button span{
+    color: white !important;
+}
+
+/*CREAMOS EFECTO HOVER Y DAMOS ESTILO AL BUTTON*/
+.air-datepicker-button span:hover{
+    background-color: #02a000 !important;
+    color: white !important;
+}

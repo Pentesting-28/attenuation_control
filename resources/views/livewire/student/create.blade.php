@@ -41,8 +41,8 @@
                         </div>
 
                         <div class="col-md-6 mb-3" >
-                            <label for="validationCustom02">Codigo</label>
-                            <input wire:model="code" type="text" class="form-control" id="validationCustom02"  placeholder="Codigo" disabled>
+                            <label for="validationCustom02">Código</label>
+                            <input wire:model="code" type="text" class="form-control" id="validationCustom02"  placeholder="Código" disabled>
                             @error('code') <span class="error text-danger">{{ $message }}</span>@enderror
                         </div>
                       </div>

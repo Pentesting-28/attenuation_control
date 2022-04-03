@@ -9,6 +9,13 @@ use Carbon\Carbon;
 
 class AttendanceExport implements FromView
 {
+    protected
+            $date_month;
+
+    public function __construct( $date_month )
+    {
+        $this->date_month = $date_month;
+    }
 
     public function view() : View
     {
@@ -31,7 +38,9 @@ class AttendanceExport implements FromView
             "days_of_the_month_format" => $days_of_the_month_format
         ];
 
-        return view('reports.exports.general_attendance', compact('data'));
+        $date_month = $this->date_month;
+        
+        return view('reports.exports.general_attendance', compact('data','date_month'));
 
     }
 
@@ -40,13 +49,33 @@ class AttendanceExport implements FromView
 
     public function showDatesAndDays()
     {
-        $month = Carbon::now()->startofMonth()->format('m');
-        $year  = Carbon::now()->format('Y');
+        if($this->date_month != null)
+        {
+            $fecha_params = Carbon::create($this->date_month);
 
-        $start = Carbon::now()->startofMonth()->format('d');
-        $end   = Carbon::now()->endOfMonth()->format('d');
+            $end = $fecha_params->endOfMonth()->format('d');
+            
+            $fecha_inicial = Carbon::create($this->date_month)->subDay();
+        }
+        else{
 
-        $fecha_inicial = Carbon::create($start.'-'.$month.'-'.$year)->subDay();
+            $month = Carbon::now()->startofMonth()->format('m');
+
+            $year  = Carbon::now()->format('Y');
+    
+            $start = Carbon::now()->startofMonth()->format('d');
+    
+            $end   = Carbon::now()->endOfMonth()->format('d');
+    
+            $fecha_inicial = Carbon::create($start.'-'.$month.'-'.$year)->subDay();
+        }
+
+        // dd(
+        //     // "Mes Params:", $fecha_params->subDay(),
+        //     // "Fin Params",  $end_params,
+        //     "Mes Actual:", $fecha_inicial,
+        //     "Fin ACtual",  $end
+        // );
 
         $array_days_of_the_month = [];
         $array_days_of_the_week  = [];

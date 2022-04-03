@@ -13,6 +13,7 @@ use Livewire\WithPagination;
 use Illuminate\Database\Eloquent\Builder;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\AttendanceListExport;
+use Carbon\Carbon;
 
 class AttendanceList extends Component
 {
@@ -26,12 +27,19 @@ class AttendanceList extends Component
 		$filter = [
 	      'student_name'      => null,
 	      'student_last_name' => null,
-	      'student_code'      => null
+	      'student_code'      => null,
+          'student_date'      => null
 	    ];
 
     public function render()
     {
-        $attendances = AttendanceModel::with( 'student','student.sports' )
+        $attendances = AttendanceModel::when($this->filter["student_date"] != null, function ( Builder $query ) {
+
+                                        $month = Carbon::create($this->filter["student_date"]);
+
+                                        $query->whereMonth('created_at', $month->format("m"))
+                                              ->whereYear('created_at',  $month->format("Y"));
+                                      })
                                       ->whereHas( 'student.sports', function ( Builder $query ) {
                                         $query->where( 'sports.id', $this->id_sport );
                                       })
@@ -51,6 +59,7 @@ class AttendanceList extends Component
                                             $query->where( 'code', 'LIKE', '%'.$this->filter["student_code"].'%' );
                                         });
                                       })
+                                      ->with( 'student','student.sports' )
                                       ->has('student')
                                       ->has('student.sports')
                                       ->orderBy('created_at', 'ASC')
@@ -78,8 +87,18 @@ class AttendanceList extends Component
         }
     }
 
+    public function clearProperty(){
+		$this->fill([
+            'filter.student_name'      => null,
+	      	'filter.student_last_name' => null,
+	      	'filter.student_code' 	   => null,
+		  	'filter.student_date'      => null,
+        ]);
+	}
+
+
     public function attendanceListExport()
     {
-    	return Excel::download(new AttendanceListExport( $this->id_sport ), 'Control-de-asistencias-'.$this->name_sport.'-('.now()->format('d-m-Y').').xlsx');
+    	return Excel::download(new AttendanceListExport( $this->id_sport, $this->filter["student_date"] ), 'Control-de-asistencias-'.$this->name_sport.'-('.now()->format('d-m-Y').').xlsx');
     }
 }
